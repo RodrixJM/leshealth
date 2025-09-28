@@ -51,6 +51,8 @@ class doctorController extends Controller
 
     public function index()
     {
+
+      Sessiones::acceso('administrador');
         $this->_view->tabla = $this->verDoctor();
 
         $this->_view->renderizar('doctor');
@@ -101,24 +103,23 @@ class doctorController extends Controller
 
         function upload_image()
         {
-         if(isset($_FILES["imagen"]))
+         if(isset($_FILES["imagenUp"]))
          {
-          $extension = explode('.', $_FILES['imagen']['name']);
+          $extension = explode('.', $_FILES['imagenUp']['name']);
           $new_name = rand() . '.' . $extension[1];
           $destination = './Views/plantilla/assets/img/' . $new_name;
-          move_uploaded_file($_FILES['imagen']['tmp_name'], $destination);
+          move_uploaded_file($_FILES['imagenUp']['tmp_name'], $destination);
           return $new_name;
          }
         }
         $image = '';
-        if($_FILES["imagen"]["name"] != '')
+        if($_FILES["imagenUp"]["name"] != '')
           {
            $image = upload_image();
         
-           $this->_doctor->insertarDoctor($this->getTexto('nombre'),$this->getTexto('sexo'),$this->getTexto('especialidad'),$this->getTexto('numero'),
-           $this->getTexto('correo'),
-           $this->getTexto('nombreU'),
-           $this->getTexto('clave'),$image);
+           $this->_doctor->actualizarDoctor($this->getTexto('idUp'),$this->getTexto('nombreUp'),$this->getTexto('sexoUp'),$this->getTexto('especialidadUp'),
+           $this->getTexto('numeroUp'),
+           $this->getTexto('correoUp'),$this->getTexto('nombreUsUp'),$this->getTexto('claveUp'),$image);
            echo $this->verDoctor();
            }
            else{
