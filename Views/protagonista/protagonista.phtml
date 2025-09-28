@@ -1,0 +1,263 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1 style=" font-family: 'Poppins' ">Les health</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>" index>Home</a></li>
+                <li class="breadcrumb-item active">Protagonista</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <center>
+                        <h4 class="card-header">Registro y Listado de Protagonistas Colaboradores con <img class="img-fluid"
+                                style="width:3%" src="<?= PLANTILLA ?>assets/img/isotipo.svg" alt="">
+                            <span class="d-none d-lg-block"
+                                style="color: black; font-family: 'Poppins', sans-serif; font-weight: 900;">LES
+                                health</span>
+                        </h4>
+                    </center>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                        <!-- Button trigger modal -->
+                        <button style="background-color: #48276f; border-color: #48276f;"  type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarProtagonista">
+                            <i class="fa-solid fa-plus"></i> Agregar Nuevo
+                        </button>
+                    </div>
+
+
+                </div>
+                <div class="card-body mt-5">
+
+                    <table id="table" class="display">
+                        <thead>
+                            <th>ID Protagonista</th>
+                            <th>Nombre Protagonista</th>
+                            <th>Cedula</th>
+                            <th>Municipio</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Edad</th>
+                            <th>Sexo</th>
+                            <th>Nacionalidad</th>
+                            <th>Estado Civil</th>
+                            <th>Ocupación</th>
+                            <th>Direccion</th>
+                            <th>Correo</th>
+                            <th>telefono</th>
+                            <th>Usuario</th>
+                            <th>Imagen</th>
+
+                            <th>Acción</th>
+                        </thead>
+                        <tbody>
+                            <?= $this->tabla ?>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+    <!-- Modal  para agregar Departamento-->
+    <div class="modal fade" id="modalAgregarProtagonista" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#48276f">
+                    <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
+                        class="modal-title fs-5" id="exampleModalLabel"> Agregar Nuevo Protagonista <i class="fa-solid fa-hospital-user"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form class="row" method="post" id="formAgregarProtagonista" enctype="multipart/form-data">
+
+                             <div class="mb-3 col-lg-3">
+                                <label for="" class="form-label">Primer Nombre</label>
+                                <input type="text" class="form-control" id="pNombre" name="pNombre" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-3">
+                                <label for="" class="form-label">Segundo Nombre</label>
+                                <input type="text" class="form-control" id="sNombre" name="sNombre" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-3">
+                                <label for="" class="form-label">Primer Apellido</label>
+                                <input type="text" class="form-control" id="pApellido" name="pApellido" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-3">
+                                <label for="" class="form-label">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="sApellido" name="sApellido" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="" class="form-label">Cedula</label>
+                                <input type="text" class="form-control" id="cedula" name="cedula" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="" class="form-label">Departamento</label>
+                                <select id="departamentoOrigen" name="departamentoOrigen" class="form-select">
+                                    <?= $this->departamentos ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="" class="form-label">Municipio</label>
+                                <select id="municipioOrigen" name="municipioOrigen" class="form-select">
+
+                                </select>
+                            </div>
+                            
+
+
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="" class="form-label">Fecha Nacimiento</label>
+                                <input type="date" class="form-control" id="fechaNacio" name="fechaNacio" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="" class="form-label">Edad</label>
+                                <input type="number" class="form-control" id="edad" name="edad" required>
+                            </div>
+
+
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="sexo" class="form-label">Sexo</label>
+                                <select name="sexo" id="sexo" class="form-select">
+                                    <option value="0">Seleciona Una Opción</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="nacionalidad" class="form-label">Nacionalidad</label>
+                                <select id="nacionalidad" name="nacionalidad" class="form-select">
+                                    <option value="0">Seleciona Una Opción</option>
+                                    <option value="Nicaraguense">Nicaragüense</option>
+                                    <option value="Extrangero">Extranjero</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="fechaDefuncion" class="form-label">Ocupación</label>
+                                <input type="text" class="form-control" name="ocupacion" id="ocupacion" required>
+                            </div>
+
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="estadoCivil" class="form-label">Estado Civil</label>
+                                <select id="estadoCivil" name="estadoCivil" class="form-select">
+                                    <option value="0">Seleciona Una Opción</option>
+                                    <option value="Union Libre">Unión de Hecho</option>
+                                    <option value="Casado">Casado(a)</option>
+                                    <option value="Soltero">Soltero(a)</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="fechaDefuncion" class="form-label">Direccion</label>
+                                <textarea class="form-control" name="direccion" id="direccion" rows="3"></textarea>
+                            </div>
+
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Numero de telefono</label>
+                                <input type="tel" class="form-control" id="numero" name="numero" required
+                                    autocomplete="off">
+                            </div>
+
+
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Correo Electronico</label>
+                                <input type="tel" class="form-control" id="correo" name="correo" required
+                                    autocomplete="off">
+                            </div>
+
+                             <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">Nombre Usuario</label>
+                                <input type="text" class="form-control" id="nombreU" name="nombreU" required  autocomplete="off">
+                                <span id="result"></span>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Contraseña Usuario</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="clave" name="clave" required>
+                                    <span id="ocultar" class="input-group-text"><i onclick="ocultarPass('clave',this);"
+                                            class="fa-solid fa-eye"></i></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Repita Contraseña </label>
+                                <div class="input-group">
+
+
+
+                                    <input type="password" class="form-control" id="repetir" name="repetir" required>
+
+                                    <span class="input-group-text"><i onclick="ocultarPass('repetir',this);"
+                                            class="fa-solid fa-eye"></i></span>
+                                </div>
+
+
+                            </div>
+
+                           
+
+
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">Foto del Protagonista</label>
+                                <input type="file" class="form-control" id="imagen" name="imagen" required
+                                    accept="image/jpg, image/png, image/jpeg">
+                            </div>
+
+                            <div id="previewContainer" class="mt-3 text-center">
+                                <img id="previewImage" src="#" alt="Previsualización"
+                                    style="max-width: 150px; display: none;" />
+                            </div>
+
+                            
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>
+                        Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar
+                        Registro</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</main>
