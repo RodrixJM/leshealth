@@ -1,0 +1,878 @@
+<main id="main" class="main">
+
+  <style>
+    .calendar {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    /* En pantallas pequeñas, el calendario se hace más bajo */
+    @media (max-width: 768px) {
+      .calendar {
+        max-width: 100%;
+        min-height: 400px;
+      }
+    }
+
+    /* En pantallas grandes, se ve más amplio */
+    @media (min-width: 1200px) {
+      .calendar {
+        max-width: 900px;
+        min-height: 700px;
+      }
+    }
+  </style>
+
+
+  <div class="pagetitle">
+    <h1 style=" font-family: 'Poppins' ">LES HEALTH</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">index</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+
+
+    <section class="container my-5">
+      <div class="row align-items-center">
+
+
+        <!-- Columna de la imagen -->
+        <div class="col-md-3">
+          <img style="width: 100%;" src='<?= PLANTILLA ?>assets/img/isotipo.svg' alt="Imagen de bienvenida" class="img-fluid ">
+        </div>
+
+        <!-- Columna del texto -->
+        <div class="col-md-8">
+          <h1 style=" font-family: 'Poppins' ; color: #48276f;" class="display-4 fw-bold">Bienvenidos a LES HEALTH</h1>
+          <p class="lead">
+            <strong> un día a la vez</strong>, acompañamos a quienes viven con lupus. <br>
+
+          </p>
+          <p class="fs-5">
+            Conecta con nuestra comunidad de Doctores especialistas en el tratamiento de lupus, en nutrición, en rutinas
+            de ejecicio y espacio para tratar la salud mental, asi como una comunidad de protagonistas que enfrentamos
+            ante esta condicion con recomendaciones, estadisticas, control y seguimiento para afrontarlo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Titulo principal -->
+
+     <div class="row mt-5">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">INFORMACIÓN RAYOS UV Y RECOMENDACIONES</h1>
+          </center>
+        </div>
+        <div class="card-body">
+          
+          <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <!-- Sales Card -->
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+
+
+
+              <div class="card-body" id="climaCard">
+                <h5 class="card-title">
+                  Clima actual <span>@ Managua</span>
+                </h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <!-- Aquí pondremos el icono dinámico del clima -->
+                    <img id="iconoClima" src="" alt="icono clima" style="width: 50px;">
+                  </div>
+                  <div class="ps-3">
+                    <h6 id="temperatura"></h6>
+                    <span id="condicion"></span><br>
+                    <small id="humedad"></small>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div><!-- End Sales Card -->
+
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+              <div class="card-body" id="uvCard">
+                <h5 class="card-title">Nivel UV <span>@ Hoy</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i id="iconoUV" class="fa-solid fa-sun" style="font-size: 30px;"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6 id="nivelUV"></h6>
+                    <small id="mensajeUV"></small>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+              <div class="card-body" id="solarCard">
+                <h5 class="card-title">Recomendación Solar <span>@ Hoy</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i id="iconoSolar" class="fa-solid fa-sun" style="font-size: 30px; color: orange;"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6 id="nivelExposicion"></h6>
+                    <small id="mensajeRecomendacion"></small>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+
+
+        </div><!-- Fin de la fila -->
+      </div><!-- fin columnas grid -->
+    </div><!-- fin de la fila -->
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+  
+
+    <!-- 
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">Mapa Interactivo</h1>
+          </center>
+        </div>
+        <div class="card-body mt-5">
+          <div id="map" style="height:250px;"></div>
+        </div>
+
+        <div class="row mt-4 mb-4">
+          <div class="col text-center">
+            <a class="btn btn-primary btn-lg" href="<?= BASE_URL ?>mapa">
+              Ver Mapa Interactivo
+            </a>
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>-->
+
+     <?php
+    if (Sessiones::accesoVista('protagonista')) {
+      ?>
+    <!-- Card para calendario de medicación -->
+    <div class="row mt-5">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">SEGUIMIENTO DE SIGNOS</h1>
+          </center>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <canvas id="graficoGlucosa"></canvas>
+            </div>
+            <div class="col-md-6">
+              <canvas id="graficoPresion"></canvas>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- Card para calendario de medicación -->
+    <div class="row mt-5">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">CALENDARIO DE MEDICACIÓN</h1>
+          </center>
+        </div>
+        <div class="card-body">
+          <div class="calendar" id="calendarMedicacion"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Inicio Servicios -->
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">DIETA ORIENTADA</h1>
+          </center>
+        </div>
+        <div class="card-body mt-5">
+
+
+          <div id="contenedor-cards-dieta" class="row"> </div>
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+    </div><!-- Fin mapa interactivo -->
+
+    <!-- Inicio Servicios -->
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">EJERCICIOS ORIENTADOS</h1>
+          </center>
+        </div>
+        <div class="card-body mt-5">
+
+
+          <div id="contenedor-cards-ejercicio" class="row"> </div>
+
+
+        </div>
+
+ 
+
+
+
+
+      </div>
+    </div><!-- Fin mapa interactivo -->
+
+
+    <!-- Inicio Servicios -->
+   
+
+
+    <!-- Inicio Servicios -->
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">RECORDATORIO DE CITAS HECHAS</h1>
+          </center>
+        </div>
+        <div class="card-body mt-5">
+
+
+          <div id="contenedor-cards2" class="row"> </div>
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+    </div><!-- Fin mapa interactivo -->
+
+    <!-- Inicio Servicios -->
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">CITAS EN CALENDARIO</h1>
+          </center>
+        </div>
+        <div class="card-body mt-5">
+
+
+          <div class="calendar" id="calendar"></div>
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+    </div><!-- Fin mapa interactivo -->
+
+      <?php } ?>
+
+     <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">NUESTROS COLABORADORES</h1>
+          </center>
+        </div>
+        <div class="card-body mt-5">
+
+
+          <div id="contenedor-cards" class="row"> </div>
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+    </div><!-- Fin mapa interactivo -->
+
+
+
+    <!-- Inicio mision y vision -->
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">SOBRE NOSOTROS</h1>
+          </center>
+        </div>
+
+        <div class="card-body ">
+          <div class="row align-items-top">
+            <div class="col-lg-6">
+              <!-- Default Card -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Nuestra Misión</h5>
+                  "LES HEALTH" Nuestra misión es brindar a las personas que enfrentan el lupus y a sus familias una
+                  herramienta integral que facilite el control, seguimiento y acompañamiento de la enfermedad,
+                  conectándolos con una comunidad de especialistas en medicina, nutrición, ejercicio y salud mental, así
+                  como con otros protagonistas que comparten la misma condición. Buscamos empoderar a cada usuario
+                  mediante información confiable, recordatorios, estadísticas y recomendaciones personalizadas para
+                  mejorar su calidad de vida.
+                </div>
+              </div><!-- End Default Card -->
+            </div>
+
+            <div class="col-lg-6">
+              <!-- Default Card -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Nuestra Visión</h5>
+                  "Ser la plataforma digital de referencia en el cuidado del lupus en Latinoamérica y el mundo,
+                  reconocida por integrar tecnología, medicina y comunidad en un solo espacio. Aspiramos a crear un
+                  ecosistema donde pacientes, familiares y especialistas trabajen juntos, fomentando la prevención, la
+                  educación y el acompañamiento humano, con el objetivo de que cada persona viva con mayor bienestar,
+                  confianza y esperanza."
+                </div>
+              </div><!-- End Default Card -->
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+    </div><!-- Fin mision y vision  -->
+
+
+
+
+
+
+  </section>
+
+
+
+  <!-- Modal Detalle de Cita -->
+  <div class="modal fade" id="citaModal" tabindex="-1" aria-labelledby="citaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content shadow">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="citaModalLabel">
+            <i class="bi bi-calendar-event"></i> Detalles de la Cita
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Imagen Doctor -->
+            <div class="col-md-4 text-center">
+              <img id="modalImagen" src="" class="img-fluid rounded-circle shadow-sm mb-3" alt="Doctor"
+                style="width:150px;height:150px;object-fit:cover;">
+              <h6 id="modalNombre" class="text-primary fw-bold"></h6>
+              <p id="modalEspecialidad" class="text-muted"></p>
+            </div>
+
+            <!-- Información de la cita -->
+            <div class="col-md-8">
+              <p><i class="bi bi-person-fill text-secondary"></i> <b>Paciente:</b> <span id="modalPaciente"></span></p>
+              <p><i class="bi bi-chat-left-dots-fill text-primary"></i> <b>Motivo:</b> <span id="modalMotivo"></span>
+              </p>
+              <p><i class="bi bi-calendar-event text-warning"></i> <b>Fecha:</b> <span id="modalFecha"></span></p>
+              <p><i class="bi bi-clock-fill text-info"></i> <b>Hora:</b> <span id="modalHora"></span></p>
+              <p><i class="bi bi-telephone-fill text-success"></i> <b>Teléfono:</b> <span id="modalTelefono"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Detalle de Medicación -->
+  <div class="modal fade" id="medicacionModal" tabindex="-1" aria-labelledby="medicacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content shadow">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="medicacionModalLabel">
+            <i class="bi bi-capsule"></i> Detalles de la Medicación
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Imagen Medicamento -->
+            <div class="col-md-4 text-center">
+              <img id="modalMedImagen" src="" class="img-fluid rounded shadow-sm mb-3" alt="Medicamento"
+                style="width:150px;height:150px;object-fit:cover;">
+              <h6 id="modalMedNombre" class="text-success fw-bold"></h6>
+            </div>
+
+            <!-- Información de la medicación -->
+            <div class="col-md-8">
+              <p><i class="bi bi-capsule-pill text-danger"></i> <b>Dosis:</b> <span id="modalMedDosis"></span></p>
+              <p><i class="bi bi-arrow-repeat text-info"></i> <b>Frecuencia:</b> <span id="modalMedFrecuencia"></span>
+              </p>
+              <p><i class="bi bi-calendar-event text-warning"></i> <b>Fecha:</b> <span id="modalMedFecha"></span></p>
+              <p><i class="bi bi-clock text-primary"></i> <b>Hora:</b> <span id="modalMedHora"></span></p>
+              <p><i class="bi bi-hourglass-split text-secondary"></i> <b>Duración:</b> <span
+                  id="modalMedDuracion"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+
+
+  var servicio = JSON.parse('<?= $this->colaborador ?>');
+  console.log(servicio);
+
+
+  var datosCards = [
+    { titulo: "Card 1", contenido: "Contenido de la Card 1" },
+    { titulo: "Card 2", contenido: "Contenido de la Card 2" },
+    { titulo: "Card 3", contenido: "Contenido de la Card 3" }
+  ];
+  var $contenedorCards = $("#contenedor-cards");
+
+ function agregarCard(nombre, especialidad, telefono, imagen) {
+    var $card = $("<div class='col-md-3 mb-4 col-lg-3'>" +
+      "<div class='card'>" +
+      "<img class='card-img-top' src='<?= PLANTILLA ?>assets/img/" + imagen + "' alt='Card image cap'>" +
+      "<div class='card-body'>" +
+      "<h5 class='card-title'>Colaborador: " + nombre + "</h5>" +
+      "<p class='card-text'>" +
+        "<i class='bi bi-briefcase-fill'></i> Especialidad: " + especialidad + "<br>" +
+        "<i class='bi bi-telephone-fill'></i> Contacto: " + telefono +
+      "</p>" +
+      "<div class='d-flex justify-content-center social-links mt-2'>" +
+        "<a href='#' class='twitter'><i class='bi bi-twitter'></i></a>" +
+        "<a href='#' class='facebook'><i class='bi bi-facebook'></i></a>" +
+        "<a href='#' class='instagram'><i class='bi bi-instagram'></i></a>" +
+        "<a href='#' class='linkedin'><i class='bi bi-linkedin'></i></a>" +
+        "<a href='#' class='whatsapp'><i class='bi bi-whatsapp'></i></a>" +
+      "</div>" +
+      "</div>" +
+      "</div>" +
+      "</div>");
+
+    $contenedorCards.append($card);
+}
+
+
+  for (i = 0; i < servicio.length; i++) {
+    nombre = servicio[i]['nombre_doctor'];
+    especialidad = servicio[i]['especialidad'];
+    telefono = servicio[i]['telefono'];
+    imagen = servicio[i]['imagen'];
+
+    agregarCard(nombre, especialidad, telefono, imagen);
+  }
+
+
+
+  var citas = JSON.parse('<?= $this->citas ?>');
+  console.log(citas);
+
+
+  var datosCards = [
+    { titulo: "Card 1", contenido: "Contenido de la Card 1" },
+    { titulo: "Card 2", contenido: "Contenido de la Card 2" },
+    { titulo: "Card 3", contenido: "Contenido de la Card 3" }
+  ];
+  var $contenedorCards2 = $("#contenedor-cards2");
+
+  function agregarCard2(nombre, especialidad, telefono, imagen, fecha, hora, paciente, motivo) {
+    var $card2 = $(`
+    <div class="col-md-4 mb-4 col-lg-3">
+      <div class="card shadow-sm border-0">
+        <img class="card-img-top rounded-top" src="<?= PLANTILLA ?>assets/img/${imagen}" alt="Foto de ${nombre}">
+        <div class="card-body">
+          <h5 class="card-title text-primary">
+            <i class="bi bi-person-badge-fill"></i> Dr. ${nombre}
+          </h5>
+          <p class="card-text mb-2">
+            <i class="bi bi-heart-pulse-fill text-danger"></i> <b>Especialidad:</b> ${especialidad}<br>
+            <i class="bi bi-telephone-fill text-success"></i> <b>Contacto:</b> ${telefono}
+          </p>
+
+          <hr>
+
+          <p class="mb-1">
+            <i class="bi bi-calendar-event text-warning"></i> <b>Fecha:</b> ${fecha}
+          </p>
+          <p class="mb-1">
+            <i class="bi bi-clock-fill text-info"></i> <b>Hora:</b> ${hora}
+          </p>
+          <p class="mb-1">
+            <i class="bi bi-person-fill text-secondary"></i> <b>Paciente:</b> ${paciente}
+          </p>
+          <p class="mb-1">
+            <i class="bi bi-chat-left-dots-fill text-primary"></i> <b>Motivo:</b> ${motivo}
+          </p>
+
+         
+        </div>
+      </div>
+    </div>
+  `);
+
+    $contenedorCards2.append($card2);
+  }
+
+
+  for (let i = 0; i < citas.length; i++) {
+    let nombre = citas[i]['nombre_doctor'];
+    let especialidad = citas[i]['especialidad'];
+    let telefono = citas[i]['telefono'];
+    let imagen = citas[i]['imagen_doctor'];
+    let fecha = citas[i]['fecha'];
+    let hora = citas[i]['hora'];
+    let paciente = citas[i]['primer_nombre'];
+    let motivo = citas[i]['motivo'];
+
+    agregarCard2(nombre, especialidad, telefono, imagen, fecha, hora, paciente, motivo);
+  }
+
+
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'es',
+      expandRows: true,      // ajusta las filas según espacio
+      contentHeight: 'auto', // altura automática
+      aspectRatio: 1.35,     // ancho vs alto para mantener proporción
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title', 
+        right: 'dayGridMonth'
+      },
+      windowResize: function (view) {
+        // Se recalcula automáticamente al cambiar tamaño ventana
+        calendar.updateSize();
+      },
+      events: citas.map(cita => ({
+        title: `Dr. ${cita.nombre_doctor} - ${cita.primer_nombre}`,
+        start: cita.fecha + 'T' + cita.hora,
+        extendedProps: {
+          doctor: cita.nombre_doctor,
+          especialidad: cita.especialidad,
+          paciente: cita.paciente,
+          motivo: cita.motivo,
+          telefono: cita.telefono,
+          fecha: cita.fecha,
+          hora: cita.hora,
+          imagen: cita.imagen_doctor
+        }
+      })),
+      eventClick: function (info) {
+        let props = info.event.extendedProps;
+
+        // Llenamos los datos del modal
+        document.getElementById("modalImagen").src = "<?= PLANTILLA ?>assets/img/" + props.imagen;
+        document.getElementById("modalNombre").innerText = "Dr. " + props.doctor;
+        document.getElementById("modalEspecialidad").innerText = props.especialidad;
+        document.getElementById("modalPaciente").innerText = props.paciente;
+        document.getElementById("modalMotivo").innerText = props.motivo;
+        document.getElementById("modalFecha").innerText = props.fecha;
+        document.getElementById("modalHora").innerText = props.hora;
+        document.getElementById("modalTelefono").innerText = props.telefono;
+
+        // Abrimos el modal
+        var citaModal = new bootstrap.Modal(document.getElementById('citaModal'));
+        citaModal.show();
+      }
+    });
+
+    calendar.render();
+  });
+
+
+ var paleta = ['#fceff6', '#d2b5d8', '#7a4d9a', '#48276f'];
+
+var medicacion = JSON.parse('<?= $this->medicacion ?>');
+console.log(medicacion);
+
+document.addEventListener('DOMContentLoaded', function () {
+  var calendarEl = document.getElementById('calendarMedicacion');
+
+  var calendarMedicacion = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    locale: 'es',
+    expandRows: true,
+    contentHeight: 'auto',
+    aspectRatio: 1.35,
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth'
+    },
+    events: medicacion.map((med, index) => ({
+      title: `${med.nombre_medicamento} - ${med.dosis}`,
+      start: med.fecha + 'T' + med.hora_aplicacion,
+      backgroundColor: paleta[index % paleta.length], // asigna color según índice
+      borderColor: paleta[index % paleta.length],
+      extendedProps: {
+        nombre: med.nombre_medicamento,
+        dosis: med.dosis,
+        frecuencia: med.frecuencia,
+        fecha: med.fecha,
+        hora: med.hora_aplicacion,
+        duracion: med.duracion,
+        imagen: med.imagenMedicina
+      }
+    })),
+    eventClick: function (info) {
+      let props = info.event.extendedProps;
+
+      document.getElementById("modalMedImagen").src = "<?= PLANTILLA ?>assets/img/" + props.imagen;
+      document.getElementById("modalMedNombre").innerText = props.nombre;
+      document.getElementById("modalMedDosis").innerText = props.dosis;
+      document.getElementById("modalMedFrecuencia").innerText = props.frecuencia;
+      document.getElementById("modalMedFecha").innerText = props.fecha;
+      document.getElementById("modalMedHora").innerText = props.hora;
+      document.getElementById("modalMedDuracion").innerText = props.duracion;
+
+      var medicacionModal = new bootstrap.Modal(document.getElementById('medicacionModal'));
+      medicacionModal.show();
+    }
+  });
+
+  calendarMedicacion.render();
+});
+
+
+  var dieta = JSON.parse('<?= $this->dieta ?>');
+  console.log(dieta);
+
+  var $contenedorCardsDieta = $("#contenedor-cards-dieta");
+
+  function agregarCardDieta(nombre_plato, tipo, descripcion, imagen_platillo) {
+    var $card = $(`
+      <div class="col-md-3 mb-4 col-lg-3">
+        <div class="card shadow-sm border-0">
+          <img class="card-img-top rounded-top" src="<?= PLANTILLA ?>assets/img/${imagen_platillo}" alt="Platillo: ${nombre_plato}">
+          <div class="card-body">
+            <h5 class="card-title text-success">
+              <i class="fa-solid fa-utensils"></i> ${nombre_plato}
+            </h5>
+            <p class="card-text mb-2">
+              <i class="fa-solid fa-tags text-primary"></i> <b>Tipo:</b> ${tipo}<br>
+              <i class="fa-solid fa-file-alt text-warning"></i> <b>Descripción:</b> ${descripcion}
+            </p>
+
+           
+          </div>
+        </div>
+      </div>
+    `);
+
+    $contenedorCardsDieta.append($card);
+  }
+
+  for (let i = 0; i < dieta.length; i++) {
+    let nombre_plato = dieta[i]['nombre_plato'];
+    let tipo = dieta[i]['tipo'];
+    let descripcion = dieta[i]['descripcion'];
+    let imagen_platillo = dieta[i]['imagen_platillo'];
+
+    agregarCardDieta(nombre_plato, tipo, descripcion, imagen_platillo);
+  }
+
+
+  var ejercicio = JSON.parse('<?= $this->ejercicio ?>');
+  console.log(ejercicio);
+
+  var $contenedorCardsEjercicio = $("#contenedor-cards-ejercicio");
+
+  function agregarCardEjercicio(nombre_ejercicio, repeticiones, series, imagen_ejercicio) {
+    var $card = $(`
+      <div class="col-md-3 mb-4 col-lg-3">
+        <div class="card shadow-sm border-0">
+          
+          <img class="card-img-top rounded-top" src="<?= PLANTILLA ?>assets/img/${imagen_ejercicio}" alt="Ejercicio: ${nombre_ejercicio}">
+          <div class="card-body">
+            <h5 class="card-title text-danger">
+              <i class="fa-solid fa-dumbbell"></i> ${nombre_ejercicio}
+            </h5>
+            <p class="card-text mb-2">
+              <i class="fa-solid fa-repeat text-primary"></i> <b>Repeticiones:</b> ${repeticiones}<br>
+              <i class="fa-solid fa-layer-group text-success"></i> <b>Series:</b> ${series}
+            </p>
+
+           
+          </div>
+        </div>
+      </div>
+    `);
+
+    $contenedorCardsEjercicio.append($card);
+  }
+
+  for (let i = 0; i < ejercicio.length; i++) {
+    let nombre_ejercicio = ejercicio[i]['nombre_ejercicio'];
+    let repeticiones = ejercicio[i]['repeticiones'];
+    let series = ejercicio[i]['series'];
+    let imagen_ejercicio = ejercicio[i]['imagen_ejercicio'];
+
+    agregarCardEjercicio(nombre_ejercicio, repeticiones, series, imagen_ejercicio);
+  }
+
+  var signos = JSON.parse('<?= $this->signo ?>');
+  console.log(signos);
+
+  // Filtrar por tipo
+  var glucosa = signos.filter(s => s.tipo === "glucosa");
+  var presion = signos.filter(s => s.tipo === "presion");
+
+  // Mapear datos para los gráficos
+  var fechasGlucosa = glucosa.map(s => s.fecha);
+  var valoresGlucosa = glucosa.map(s => s.valor);
+
+  var fechasPresion = presion.map(s => s.fecha);
+  var valoresPresion = presion.map(s => s.valor);
+
+  // Gráfico de Glucosa
+  var ctxGlucosa = document.getElementById('graficoGlucosa').getContext('2d');
+  var graficoGlucosa = new Chart(ctxGlucosa, {
+    type: 'line',
+    data: {
+      labels: fechasGlucosa,
+      datasets: [{
+        label: 'Glucosa (mg/dL)',
+        data: valoresGlucosa,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderWidth: 2,
+        pointRadius: 5,
+        tension: 0.3 // curva suavizada
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: { display: true, text: 'Histórico de Glucosa' }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Fecha y Hora' } },
+        y: { title: { display: true, text: 'Nivel de Glucosa' } }
+      }
+    }
+  });
+
+  // Gráfico de Presión Arterial
+  var ctxPresion = document.getElementById('graficoPresion').getContext('2d');
+  var graficoPresion = new Chart(ctxPresion, {
+    type: 'line',
+    data: {
+      labels: fechasPresion,
+      datasets: [{
+        label: 'Presión Arterial (mmHg)',
+        data: valoresPresion,
+        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderWidth: 2,
+        pointRadius: 5,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: { display: true, text: 'Histórico de Presión Arterial' }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Fecha y Hora' } },
+        y: { title: { display: true, text: 'mmHg' } }
+      }
+    }
+  });
+
+
+
+</script>
