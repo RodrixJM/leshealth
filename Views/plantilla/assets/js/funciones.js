@@ -1,8 +1,11 @@
 $(function () {
 
+  let baseURL = "http://localhost/leshealth/Views/plantilla/";
+
     Fancybox.bind("[data-fancybox]", {
   // Your custom options
 });
+
 
   const apiKey = "85b72a23feb9ccd5bd3520a9efd9a39e";
   const lat = 12.1364;
@@ -257,6 +260,68 @@ $(function () {
 
         });
     });
+
+
+    /* Funcion para cargar informacion en el formulario de editar doctor */
+     /* funciones cargar los datos en el modal actualizar categoria */
+     $("#table").on("click",".btnEditarDoctor", function(){
+        $('#modalEditarDoctor').modal({backdrop: 'static', keyboard: false});
+        var datos = JSON.parse($(this).attr('data-Doctor'));
+        console.log(datos);
+        $("#idUp").val(datos['id_doctor']);
+        $("#nombreUp").val(datos['nombre_doctor']);
+        $("#sexoUp").val(datos['sexo']);
+        $("#numeroUp").val(datos['telefono']);
+        $("#correoUp").val(datos['correo']);
+        $("#nombreUsUp").val(datos['usuario']);
+
+        $("#especialidadUp").val(datos['especialidad']);
+
+        $("#previewImageUp").attr('src', baseURL + 'assets/img/' + datos['imagen']);
+
+
+      });
+
+
+       /* Funcion para mandar el formulario de editar doctor y agregar a la BD */
+
+       $('#modalEditarDoctor').submit(function (e) {
+        e.preventDefault();
+        var extension=$("#imagenUp").val().split('.').pop().toLowerCase();;
+        console.log(extension);
+        if(extension != '')
+          {
+           if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
+           {
+            alert("Invalid Image File");
+            $('#imagenUp').val('');
+            return false;
+           }
+          } 
+        $.ajax({
+            url: 'doctor/editarDoctor',
+            type: 'post',
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+                $('#modalEditarDoctor').modal('hide');
+                $('#formEditarDoctor')[0].reset();
+                $("#table").DataTable().destroy();
+                $("#table tbody").html(respuesta);
+                inicializarDataTable();
+                Swal.fire({
+                    title: "Se edito el registro de Doctor!",
+                    text: "con exito!",
+                    icon: "success"
+                  });
+                
+            }
+
+
+        });
+    });
+
 
 
       /* Funcion para mandar el formulario de agendar cita vista protagonista */

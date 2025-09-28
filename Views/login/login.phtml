@@ -1,0 +1,103 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>LES HEALTH</h1>
+        <nav>
+            <ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="<?= BASE_URL ?>"index>Home</a></li>                <li class="breadcrumb-item active">Login</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+
+        <!-- Titulo principal -->
+
+
+        <div class="row">
+            <div class="col-lg-12 d-grid gap-2 d-md-flex justify-content-md-center pt-3">
+
+                <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center h-auto py-4">
+                              
+                                    <img style="width: 60%;"  class="img-fluid" src="<?= PLANTILLA ?>assets/img/secundario.svg" alt="">
+
+                                
+                            </div><!-- End Logo -->
+
+
+
+                            <div class="pt-0 pb-2">
+
+                                <h5 class="fw-bold text-center pb-0 fs-4">Ingrese a LES HEALT</h5>
+
+                            </div>
+
+                            <form class="row justify-content-center" method="post">
+
+                                <?php
+                                if (isset($this->mensaje))
+                                    echo $this->mensaje;
+                                ?>
+
+
+                                <input type="hidden" name="validar" value='1'>
+
+                                <div class="mb-3 col-12 col-md-10">
+                                    <label for="yourUsername" class="form-label">Nombre de Usuario</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                class="fa-solid fa-user"></i></span>
+                                        <input type="text" name="user" class="form-control" id="user" required>
+                                        <div class="invalid-feedback">Please enter your username.</div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="mb-3 col-12 col-md-10">
+                                    <label for="" class="form-label">Ingrese Aqui su Contraseña</label>
+                                    <div class="input-group">
+                                        <input type="password" name="clave" class="form-control" id="clave" required>
+                                        <span id="ocultar" class="input-group-text"><i
+                                                onclick="ocultarPass('clave',this);" class="fa-solid fa-eye"></i></span>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="mb-3 col-12 col-md-10">
+                                    <button class="btn btn-primary w-100" type="submit">Login</button>
+                                </div>
+                                <div class="mb-3 col-12 col-md-10">
+                                    <p class="small mb-0">No tienes cuenta? <a
+                                            href="pages-register.html">Contactanos</a></p>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div><!-- fin columnas grid -->
+        </div><!-- fin de la fila -->
+
+
+
+
+
+
+
+    </section>
+
+</main>

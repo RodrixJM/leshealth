@@ -79,12 +79,6 @@
 
 
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="<?= BASE_URL ?>buscar">
-      <i class="fa-solid fa-search"></i>
-        <span>Buscar</span>
-      </a>
-    </li><!-- End Dashboard Nav -->
 
     <?php
     if (Sessiones::getVista('administrador')) {

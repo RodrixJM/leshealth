@@ -60,7 +60,7 @@
 
 
 
-    <!-- Modal  para agregar Departamento-->
+    <!-- Modal  para agregar Doctor-->
     <div class="modal fade" id="modalAgregarDoctor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -173,6 +173,129 @@
             </div>
         </div>
     </div>
+
+       <!-- Modal  para Editar Doctor-->
+
+        <div class="modal fade" id="modalEditarDoctor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#48276f">
+                    <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
+                        class="modal-title fs-5" id="exampleModalLabel"> Editar Datos Del Doctor <i
+                            class="fa-solid fa-stethoscope"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form class="row" method="post" id="formEditarDoctor" enctype="multipart/form-data" autocomplete="off">
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">ID Doctor</label>
+                                <input type="text" class="form-control" id="idUp" name="idUp" >
+                            </div>
+
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="nombreUp" name="nombreUp" 
+                                    autocomplete="off">
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Sexo</label>
+                                <select class="form-select" name="sexoUp" id="sexoUp">
+                                    <option value="Limpieza">Seleccione una Opción</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>
+
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Especialidad</label>
+                                <input type="text" class="form-control" id="especialidadUp" name="especialidadUp" >
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Numero de telefono</label>
+                                <input type="tel" class="form-control" id="numeroUp" name="numeroUp" 
+                                    autocomplete="off">
+                            </div>
+
+
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Correo Electronico</label>
+                                <input type="tel" class="form-control" id="correoUp" name="correoUp" 
+                                    autocomplete="off">
+                            </div>
+
+                             <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">Nombre Usuario</label>
+                                <input type="text" class="form-control" id="nombreUsUp" name="nombreUsUp"  autocomplete="off">
+                                <span id="result"></span>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Contraseña Usuario</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="claveUp" name="claveUsUp" autocomplete="new-password">
+                                    <span id="ocultar" class="input-group-text"><i onclick="ocultarPass('claveUp',this);"
+                                            class="fa-solid fa-eye"></i></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Repita Contraseña </label>
+                                <div class="input-group">
+
+
+
+                                    <input type="password" class="form-control" id="repetirUp" name="repetirUp" autocomplete="off">
+
+                                    <span class="input-group-text"><i onclick="ocultarPass('repetirUp',this);"
+                                            class="fa-solid fa-eye"></i></span>
+                                </div>
+
+
+                            </div>
+
+                           
+
+
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">Foto del Doctor</label>
+                                <input type="file" class="form-control" id="imagenUp" name="imagenUp" 
+                                    accept="image/jpg, image/png, image/jpeg">
+                            </div>
+
+                            <div id="mb-3 col-lg-12" class="mt-3">
+                                <label for="" class="form-label">Imagen Actual del Doctor</label>
+                                <img id="previewImageUp" src="#" alt="Previsualización"
+                                    style="max-width: 150px; display:block" />
+                            </div>
+
+                            
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>
+                        Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar
+                        Registro</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
 
 
 

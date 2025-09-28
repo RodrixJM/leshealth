@@ -30,8 +30,8 @@ class doctorController extends Controller
 
 
           <td>
-          <button style="background-color: #5A2A7A	; border: #5A2A7A	;" data-Servicio=\'' . $datos . '\' " class="btn btn-info btn-circle btnEditarServicio" data-bs-toggle="modal"
-          data-bs-target="#modalActualizarServicio">
+          <button style="background-color: #5A2A7A	; border: #5A2A7A	;" data-Doctor=\'' . $datos . '\' " class="btn btn-info btn-circle btnEditarDoctor" data-bs-toggle="modal"
+          data-bs-target="#modalEditarDoctor">
             <i style="color: white;" class="fa-solid fa-pen"></i>
             </button>
    <button data-borrarServicio=' . $fila[$i]['id_doctor'] . ' class="btn btn-danger btn-circle btBorrarDepartamento">
@@ -96,6 +96,42 @@ class doctorController extends Controller
    
         
     }
+
+     public function editarDoctor(){
+
+        function upload_image()
+        {
+         if(isset($_FILES["imagen"]))
+         {
+          $extension = explode('.', $_FILES['imagen']['name']);
+          $new_name = rand() . '.' . $extension[1];
+          $destination = './Views/plantilla/assets/img/' . $new_name;
+          move_uploaded_file($_FILES['imagen']['tmp_name'], $destination);
+          return $new_name;
+         }
+        }
+        $image = '';
+        if($_FILES["imagen"]["name"] != '')
+          {
+           $image = upload_image();
+        
+           $this->_doctor->insertarDoctor($this->getTexto('nombre'),$this->getTexto('sexo'),$this->getTexto('especialidad'),$this->getTexto('numero'),
+           $this->getTexto('correo'),
+           $this->getTexto('nombreU'),
+           $this->getTexto('clave'),$image);
+           echo $this->verDoctor();
+           }
+           else{
+            $this->_doctor->insertarServicioSinImagen($this->getTexto('tipoServicio'),$this->getTexto('descripcionServicio'),$this->getTexto('precioServicio'));
+            echo $this->verDoctor();
+           }
+        
+          
+          
+   
+        
+    }
+
 
      
 
