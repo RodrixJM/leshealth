@@ -1,11 +1,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>HappyHealth</h1>
+        <h1 style=" font-family: 'Poppins' ">Les health</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">Home</a></li>
-                <li class="breadcrumb-item active">Ejercicios</li>
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>" index>Home</a></li>
+                <li class="breadcrumb-item active">Doctor</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -15,38 +15,44 @@
             <div class="card">
                 <div class="card-header">
                     <center>
-                        <h4 class="card-header">Registro y Listado de Ejercicios</h4>
+                        <h4 class="card-header">Registro y Listado de Ejrcicios <img class="img-fluid"
+                                style="width:3%" src="<?= PLANTILLA ?>assets/img/isotipo.svg" alt="">
+                            <span class="d-none d-lg-block"
+                                style="color: black; font-family: 'Poppins', sans-serif; font-weight: 900;">LES
+                                health</span>
+                        </h4>
                     </center>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#modalAgregarEjercicio">
+                        <button style="background-color: #48276f; border-color: #48276f;" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarDoctor">
                             <i class="fa-solid fa-plus"></i> Agregar Nuevo
                         </button>
                     </div>
+
+
                 </div>
                 <div class="card-body mt-5">
 
-                    <table id="tableEjercicio" class="display">
+                    <table id="table" class="display">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre Ejercicio</th>
-                                <th>Repeticiones</th>
-                                <th>Series</th>
-                                <th>Paciente</th>
-                                <th>Imagen</th>
-                                <th>Acción</th>
-                            </tr>
+                            <th>ID Ejercicio</th>
+                            <th>Nombre Ejercicio</th>
+                            <th>repeticiones</th>
+                            <th>Series</th>
+                            <th>Protagonista</th>
+                            <th>Acciones</th>
                         </thead>
                         <tbody>
-                            <?= $this->tablaEjercicio ?>
+                            <?= $this->tabla ?>
                         </tbody>
+
                     </table>
 
                 </div>
             </div>
         </div>
+
     </section>
 
     <!-- Modal Agregar Ejercicio -->

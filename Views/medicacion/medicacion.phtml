@@ -1,11 +1,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>HappyHealth</h1>
+        <h1 style=" font-family: 'Poppins' ">Les health</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">Home</a></li>
-                <li class="breadcrumb-item active">Medicación</li>
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>" index>Home</a></li>
+                <li class="breadcrumb-item active">Doctor</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -15,40 +15,47 @@
             <div class="card">
                 <div class="card-header">
                     <center>
-                        <h4 class="card-header">Registro y Listado de Medicación</h4>
+                        <h4 class="card-header">Registro y Listado de Medicamentos <img class="img-fluid"
+                                style="width:3%" src="<?= PLANTILLA ?>assets/img/isotipo.svg" alt="">
+                            <span class="d-none d-lg-block"
+                                style="color: black; font-family: 'Poppins', sans-serif; font-weight: 900;">LES
+                                health</span>
+                        </h4>
                     </center>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#modalAgregarMedicacion">
+                        <button style="background-color: #48276f; border-color: #48276f;" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarDoctor">
                             <i class="fa-solid fa-plus"></i> Agregar Nuevo
                         </button>
                     </div>
+
+
                 </div>
                 <div class="card-body mt-5">
 
-                    <table id="tableMedicacion" class="display">
+                    <table id="table" class="display">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre Medicamento</th>
-                                <th>Dosis</th>
-                                <th>Frecuencia</th>
-                                <th>Hora</th>
-                                <th>Fecha</th>
-                                <th>Duración</th>
-                                <th>Paciente</th>
-                                <th>Acción</th>
-                            </tr>
+                            <th>ID Medicamento</th>
+                            <th>Nombre Medicamento</th>
+                            <th>Dosis</th>
+                            <th>Frecuencia</th>
+                            <th>Hora</th>
+                            <th>Usuario</th>
+                            <th>Periodo</th>
+                            <th>Usuario</th>
+                            <th>Accion</th>
                         </thead>
                         <tbody>
-                            <?= $this->tablaMedicacion ?>
+                            <?= $this->tabla ?>
                         </tbody>
+
                     </table>
 
                 </div>
             </div>
         </div>
+
     </section>
 
     <!-- Modal Agregar Medicación -->
@@ -94,11 +101,11 @@
 
                         <div class="mb-3 col-lg-12">
                             <label class="form-label">Paciente</label>
-                            <select name="protagonista" class="form-select required>
+                            <select name="protagonista" class="form-select" required>
                                 <option value="0">Seleccione Paciente</option>
-                                <?php foreach($this->pacientes as $p){ ?>
-                                    <option value="<?= $p['id_usuario'] ?>" ><?= $p['nombre_usuario'] ?></option>
-                                <?php } ?>
+                                <?php foreach($this->pacientes as $p): ?>
+        <option value="<?= $p['id_paciente'] ?>"><?= $p['primer_nombre'] . ' ' . $p['primer_apellido'] ?></option>
+    <?php endforeach; ?>
                             </select>
                         </div>
 

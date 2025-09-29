@@ -5,7 +5,7 @@ class protagonistaModel extends Model
 
     public function obtenerProtagonista()
     {
-        return $this->_db->query("select *from protagonista;")->fetchAll();
+        return $this->_db->query("select * from protagonista;")->fetchAll();
     }
 
     
