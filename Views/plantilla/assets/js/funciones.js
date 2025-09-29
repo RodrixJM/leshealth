@@ -572,6 +572,349 @@ $("#table").on("click", ".btnEditarUsuario", function() {
     
     });
 
+    // =============================
+    // INFORMES
+    // =========================
+    $(document).ready(function() {
+
+    // ==========================
+    // 1. Abrir modal Editar Reporte
+    // ==========================
+    $("#tableReportes").on("click", ".btnEditarReporte", function() {
+        let datos = JSON.parse($(this).attr('data-reporte'));
+
+        // Llenar campos del formulario con los datos
+        $("#id_signo").val(datos['id_signo']);
+        $("#fechaEditar").val(datos['fecha']);
+        $("#horaEditar").val(datos['hora']);
+        $("#tipoEditar").val(datos['tipo']);
+        $("#valorEditar").val(datos['valor']);
+        $("#pacienteReporteEditar").val(datos['protagonista_id_protagonista']);
+
+        // Abrir modal
+        $("#modalEditarReporte").modal('show');
+    });
+
+    // ==========================
+    // 2. Enviar formulario Agregar Reporte
+    // ==========================
+    $("#formAgregarReporte").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+
+        $.ajax({
+            url: 'reportes/agregarReporte',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                $("#tableReportes tbody").html(respuesta);
+                $("#modalAgregarReporte").modal('hide');
+                $("#formAgregarReporte")[0].reset();
+            }
+        });
+    });
+
+    // ==========================
+    // 3. Enviar formulario Editar Reporte
+    // ==========================
+    $("#formEditarReporte").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+
+        $.ajax({
+            url: 'reportes/editarReporte',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                $("#tableReportes tbody").html(respuesta);
+                $("#modalEditarReporte").modal('hide');
+            }
+        });
+    });
+
+    // ==========================
+    // 4. Borrar Reporte
+    // ==========================
+    $("#tableReportes").on("click", ".btnBorrarReporte", function() {
+        let id = $(this).attr('data-borrarReporte');
+
+        if(confirm("¿Está seguro de eliminar este registro de signos vitales?")) {
+            $.ajax({
+                url: 'reportes/borrarReporte',
+                type: 'POST',
+                data: { idSigno: id },
+                success: function(respuesta) {
+                    $("#tableReportes tbody").html(respuesta);
+                }
+            });
+        }
+    });
+
+});
+
+
+    // ===========================
+    // EJERCICIO
+    // =================
+
+    $(document).ready(function() {
+
+    // ==========================
+    // 1. Abrir modal Editar Ejercicio
+    // ==========================
+    $("#tableEjercicio").on("click", ".btnEditarEjercicio", function() {
+        let datos = JSON.parse($(this).attr('data-ejercicio'));
+
+        // Llenar campos del formulario con los datos
+        $("#id_ejercicio").val(datos['id_ejercicio']);
+        $("#nombreEjercicioEditar").val(datos['nombre_ejercicio']);
+        $("#repeticionesEditar").val(datos['repeticiones']);
+        $("#seriesEditar").val(datos['series']);
+        $("#pacienteEjercicioEditar").val(datos['protagonista_id_protagonista']);
+
+        // Abrir modal
+        $("#modalEditarEjercicio").modal('show');
+    });
+
+    // ==========================
+    // 2. Enviar formulario Agregar Ejercicio
+    // ==========================
+    $("#formAgregarEjercicio").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+
+        $.ajax({
+            url: 'ejercicio/agregarEjercicio',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                $("#tableEjercicio tbody").html(respuesta);
+                $("#modalAgregarEjercicio").modal('hide');
+                $("#formAgregarEjercicio")[0].reset();
+            }
+        });
+    });
+
+    // ==========================
+    // 3. Enviar formulario Editar Ejercicio
+    // ==========================
+    $("#formEditarEjercicio").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+
+        $.ajax({
+            url: 'ejercicio/editarEjercicio',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                $("#tableEjercicio tbody").html(respuesta);
+                $("#modalEditarEjercicio").modal('hide');
+            }
+        });
+    });
+
+    // ==========================
+    // 4. Borrar Ejercicio
+    // ==========================
+    $("#tableEjercicio").on("click", ".btnBorrarEjercicio", function() {
+        let id = $(this).attr('data-borrarEjercicio');
+
+        if(confirm("¿Está seguro de eliminar este registro de ejercicio?")) {
+            $.ajax({
+                url: 'ejercicio/borrarEjercicio',
+                type: 'POST',
+                data: { idEjercicio: id },
+                success: function(respuesta) {
+                    $("#tableEjercicio tbody").html(respuesta);
+                }
+            });
+        }
+    });
+
+});
+
+
+    // ===========================
+    // DIETAAAAAAAAAAAAAAAAA
+    //==================
+
+    $(document).ready(function() {
+
+    // ==========================
+    // 1. Abrir modal Editar Dieta
+    // ==========================
+    $("#tableDieta").on("click", ".btnEditarDieta", function() {
+        let datos = JSON.parse($(this).attr('data-dieta'));
+
+        // Llenar campos del formulario con los datos
+        $("#id_dieta").val(datos['id_dieta']);
+        $("#nombrePlatoEditar").val(datos['nombre_plato']);
+        $("#tipoEditar").val(datos['tipo']);
+        $("#descripcionEditar").val(datos['descripcion']);
+        $("#pacienteEditar").val(datos['protagonista_id_protagonista']);
+
+        // Abrir modal
+        $("#modalEditarDieta").modal('show');
+    });
+
+    // ==========================
+    // 2. Enviar formulario Agregar Dieta
+    // ==========================
+    $("#formAgregarDieta").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+
+        $.ajax({
+            url: 'dieta/agregarDieta',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                $("#tableDieta tbody").html(respuesta);
+                $("#modalAgregarDieta").modal('hide');
+                $("#formAgregarDieta")[0].reset();
+            }
+        });
+    });
+
+    // ==========================
+    // 3. Enviar formulario Editar Dieta
+    // ==========================
+    $("#formEditarDieta").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+
+        $.ajax({
+            url: 'dieta/editarDieta',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                $("#tableDieta tbody").html(respuesta);
+                $("#modalEditarDieta").modal('hide');
+            }
+        });
+    });
+
+    // ==========================
+    // 4. Borrar Dieta
+    // ==========================
+    $("#tableDieta").on("click", ".btnBorrarDieta", function() {
+        let id = $(this).attr('data-borrarDieta');
+
+        if(confirm("¿Está seguro de eliminar este registro de dieta?")) {
+            $.ajax({
+                url: 'dieta/borrarDieta',
+                type: 'POST',
+                data: { idDieta: id },
+                success: function(respuesta) {
+                    $("#tableDieta tbody").html(respuesta);
+                }
+            });
+        }
+    });
+
+});
+
+
+    // ==========================
+    // MEDICACIOOOONESSS
+    // ==========================
+
+    // ==========================
+    // 1. Abrir modal Editar
+    // ==========================
+    $("#tableMedicacion").on("click", ".btnEditarMedicacion", function() {
+        let datos = JSON.parse($(this).attr('data-medicacion'));
+
+        // Llenar campos del formulario con los datos
+        $("#id_medicacion").val(datos['id_medicacion']);
+        $("#nombreEditar").val(datos['nombre_medicamento']);
+        $("#dosisEditar").val(datos['dosis']);
+        $("#frecuenciaEditar").val(datos['frecuencia']);
+        $("#horaEditar").val(datos['hora_aplicacion']);
+        $("#fechaEditar").val(datos['fecha']);
+        $("#duracionEditar").val(datos['duracion']);
+        $("#pacienteEditar").val(datos['protagonista_id_protagonista']);
+
+        // Abrir modal
+        $("#modalEditarMedicacion").modal('show');
+    });
+
+    // ==========================
+    // 2. Enviar formulario Agregar Medicación
+    // ==========================
+    $("#formAgregarMedicacion").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+
+        for (let [key, value] of data.entries()) {
+        console.log(key + ": " + value);
+    }
+
+        $.ajax({
+            url: 'medicacion/agregar',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                $("#tableMedicacion tbody").html(respuesta);
+                $("#modalAgregarMedicacion").modal('hide');
+                $("#formAgregarMedicacion")[0].reset();
+            }
+        });
+    });
+
+    // ==========================
+    // 3. Enviar formulario Editar Medicación
+    // ==========================
+    $("#formEditarMedicacion").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+
+        $.ajax({
+            url: 'medicacion/editarMedicacion',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+                $("#tableMedicacion tbody").html(respuesta);
+                $("#modalEditarMedicacion").modal('hide');
+            }
+        });
+    });
+
+    // ==========================
+    // 4. Borrar Medicación
+    // ==========================
+    $("#tableMedicacion").on("click", ".btnBorrarMedicacion", function() {
+        let id = $(this).attr('data-borrarMedicacion');
+
+        if(confirm("¿Está seguro de eliminar esta medicación?")) {
+            $.ajax({
+                url: 'medicacion/borrarMedicacion',
+                type: 'POST',
+                data: { idMedicacion: id },
+                success: function(respuesta) {
+                    $("#tableMedicacion tbody").html(respuesta);
+                }
+            });
+        }
+    });
+
+
      /* ------------------------------
         ------------------------------
           *   Funciones usuario   *
@@ -1783,6 +2126,7 @@ function inicializarDataTable(){
 });
 
 }
+
 
 
 Fancybox.bind("[data-fancybox]", {

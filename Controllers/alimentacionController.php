@@ -1,12 +1,12 @@
 <?php
-class dietaController extends Controller
+class alimentacionController extends Controller
 {
     private $_dieta;
 
     function __construct()
     {
         parent::__construct();
-        $this->_dieta = $this->loadModel("dieta");
+        $this->_dieta = $this->loadModel("alimentacion");
     }
 
     public function index()

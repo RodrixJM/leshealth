@@ -1,0 +1,101 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>HappyHealth</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">Home</a></li>
+                <li class="breadcrumb-item active">Reportes - Signos Vitales</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <center>
+                        <h4 class="card-header">Registro de Signos Vitales</h4>
+                    </center>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                        <!-- Opcional: Botón para filtrar o generar reportes -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalFiltrarSignos">
+                            <i class="fa-solid fa-filter"></i> Filtrar
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body mt-5">
+
+                    <table id="tableSignos" class="display">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                                <th>Paciente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($this->signos as $s){ ?>
+                            <tr>
+                                <td><?= $s['id_signo'] ?></td>
+                                <td><?= $s['fecha'] ?></td>
+                                <td><?= $s['hora'] ?></td>
+                                <td><?= $s['tipo'] ?></td>
+                                <td><?= $s['valor'] ?></td>
+                                <td><?= $s['paciente'] ?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Filtrar Signos -->
+    <div class="modal fade" id="modalFiltrarSignos" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#ecc006">
+                    <h1 class="modal-title fs-5">Filtrar Signos Vitales</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formFiltrarSignos" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Paciente</label>
+                            <select name="protagonista_id" class="form-select">
+                                <option value="0">Todos los Pacientes</option>
+                                <?php foreach($this->pacientes as $p){ ?>
+                                    <option value="<?= $p['id_paciente'] ?>"><?= $p['primer_nombre'] . ' ' . $p['primer_apellido'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Fecha Desde</label>
+                            <input type="date" class="form-control" name="fecha_desde">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Fecha Hasta</label>
+                            <input type="date" class="form-control" name="fecha_hasta">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-filter"></i> Aplicar Filtro</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

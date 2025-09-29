@@ -1,0 +1,157 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>HappyHealth</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">Home</a></li>
+                <li class="breadcrumb-item active">Alimentación</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <center>
+                        <h4 class="card-header">Registro y Listado de Dietas</h4>
+                    </center>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarDieta">
+                            <i class="fa-solid fa-plus"></i> Agregar Nuevo
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body mt-5">
+
+                    <table id="tableDieta" class="display">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre Plato</th>
+                                <th>Tipo</th>
+                                <th>Descripción</th>
+                                <th>Paciente</th>
+                                <th>Imagen</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?= $this->tablaDieta ?>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Agregar Dieta -->
+    <div class="modal fade" id="modalAgregarDieta" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#ecc006">
+                    <h1 class="modal-title fs-5">Agregar Dieta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarDieta" class="row" method="post" enctype="multipart/form-data">
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Nombre del Plato</label>
+                            <input type="text" class="form-control" name="nombre_plato" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Tipo</label>
+                            <input type="text" class="form-control" name="tipo" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcion" rows="3" required></textarea>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Paciente</label>
+                            <select name="protagonista_id_protagonista" class="form-select" required>
+                                <option value="0">Seleccione Paciente</option>
+                                <?php foreach($this->pacientes as $p){ ?>
+                                    <option value="<?= $p['id_paciente'] ?>"><?= $p['primer_nombre'] . ' ' . $p['primer_apellido'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Imagen del Plato</label>
+                            <input type="file" class="form-control" name="imagen_platillo" accept="image/*">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Dieta</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Dieta -->
+    <div class="modal fade" id="modalEditarDieta" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#ecc006">
+                    <h1 class="modal-title fs-5">Editar Dieta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarDieta" class="row" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id_dieta" id="id_dieta">
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Nombre del Plato</label>
+                            <input type="text" class="form-control" name="nombre_plato" id="nombre_plato" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Tipo</label>
+                            <input type="text" class="form-control" name="tipo" id="tipo" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcion" id="descripcion" rows="3" required></textarea>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Paciente</label>
+                            <select name="protagonista_id_protagonista" class="form-select" id="paciente_dieta" required>
+                                <option value="0">Seleccione Paciente</option>
+                                <?php foreach($this->pacientes as $p){ ?>
+                                    <option value="<?= $p['id_paciente'] ?>"><?= $p['primer_nombre'] . ' ' . $p['primer_apellido'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Imagen del Plato</label>
+                            <input type="file" class="form-control" name="imagen_platillo" id="imagen_platillo" accept="image/*">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-edit"></i> Guardar Cambios</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

@@ -14,7 +14,7 @@
     if (Sessiones::accesoVista('protagonista')) {
       ?>
     <li class="nav-item">
-      <a class="nav-link collapsed" href="<?= BASE_URL ?>medicacion">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>medication">
         <i class="fa-solid fa-pills"></i>
         <span>Medicacion</span>
       </a>
