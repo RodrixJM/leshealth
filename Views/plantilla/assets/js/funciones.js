@@ -8,8 +8,8 @@ $(function () {
 
 
   const apiKey = "85b72a23feb9ccd5bd3520a9efd9a39e";
-  const lat = 12.1364;
-  const lon = -86.2514;
+  let lat = 12.1364;
+  let lon = -86.2514;
 
    if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -41,7 +41,7 @@ $(function () {
       units: "metric",
       lang: "es"
     },
-    success: function (data) {
+    success: async function (data) {
       const weather = data.weather[0];
       const temp = data.main.temp;
       const humedad = data.main.humidity;
@@ -57,6 +57,10 @@ $(function () {
 
       // ----- Card 2: Recomendación solar -----
       const condMain = weather.main.toLowerCase();
+      const uvResponse = await fetch(`https://currentuvindex.com/api/v1/uvi?latitude=${lat}&longitude=${lon}`);
+const uvData = await uvResponse.json(); 
+const uvIndex = uvData.now.uvi; // ajusta según cómo devuelva la API
+
       let nivel = "";
       let mensaje = "";
       let icono = "";
@@ -110,35 +114,39 @@ $(function () {
       $("#solarCard h5").text(tituloSolar);
 
       // ----- Card 3: Nivel UV estimado (alerta lupus) -----
-      const hora = new Date().getHours(); // hora local
-      let uvNivel = "";
-      let mensajeUV = "";
-      let uvColor = "";
+const hora = new Date().getHours(); // hora local
+let uvNivel = "";
+let mensajeUV = "";
+let uvIcono = "";
+let uvColor = "";
 
-      // Estimación UV combinando cielo y hora
-      if (condMain.includes("clear")) {
-        if (hora >= 10 && hora <= 16) {
-          uvNivel = "Alta";
-          mensajeUV = "🔴 Evita exposición directa al sol, usa protector solar y ropa de protección. ⚠️ Lupus";
-          uvColor = "red";
-        } else {
-          uvNivel = "Moderada";
-          mensajeUV = "🟠 Usa protección solar, gafas y gorra.";
-          uvColor = "orange";
-        }
-      } else if (condMain.includes("cloud")) {
-        uvNivel = "Moderada";
-        mensajeUV = "🟡 Rayos UV atraviesan las nubes, usa protección.";
-        uvColor = "yellow";
-      } else if (condMain.includes("rain") || condMain.includes("snow")) {
-        uvNivel = "Baja";
-        mensajeUV = "🟢 Riesgo bajo de UV, aún así protege piel sensible.";
-        uvColor = "green";
-      } else {
-        uvNivel = "Variable";
-        mensajeUV = "ℹ️ Consulta antes de salir, protección recomendada.";
-        uvColor = "blue";
-      }
+// Estimación UV combinando índice y hora
+if (uvIndex <= 2) {
+  uvNivel = "Baja exposición";
+  mensajeUV = "🟢 Riesgo bajo, aún así usa protector solar si te expones mucho tiempo.";
+  uvIcono = "fa-sun"; 
+  uvColor = "green";
+} else if (uvIndex <= 5) {
+  uvNivel = "Exposición moderada";
+  mensajeUV = "🟡 Usa gafas de sol y bloqueador si sales al mediodía.";
+  uvIcono = "fa-sun-cloud";
+  uvColor = "yellow";
+} else if (uvIndex <= 7) {
+  uvNivel = "Alta exposición";
+  mensajeUV = "🟠 Usa protector solar, gafas y busca sombra entre 10am - 4pm.";
+  uvIcono = "fa-sun";
+  uvColor = "orange";
+} else if (uvIndex <= 10) {
+  uvNivel = "Muy alta exposición";
+  mensajeUV = "🔴 Evita estar al sol directo. Usa sombrero, bloqueador fuerte y ropa protectora.";
+  uvIcono = "fa-sun"; 
+  uvColor = "red";
+} else {
+  uvNivel = "Exposición extrema";
+  mensajeUV = "☠️ Evita salir sin protección, riesgo muy alto de daño en la piel y ojos.";
+  uvIcono = "fa-sun"; 
+  uvColor = "purple";
+}
 
       $("#nivelUV").text(uvNivel);
       $("#mensajeUV").text(mensajeUV);
@@ -285,7 +293,7 @@ $(function () {
 
        /* Funcion para mandar el formulario de editar doctor y agregar a la BD */
 
-       $('#modalEditarDoctor').submit(function (e) {
+       $('#formEditarDoctor').submit(function (e) {
         e.preventDefault();
         var extension=$("#imagenUp").val().split('.').pop().toLowerCase();;
         console.log(extension);
@@ -457,82 +465,40 @@ $(function () {
     });
 
     /* Funcion para enviar los datos y cargarlos en el formilario de actualizar */
-    $("#table").on("click",".btnEditarCementerio", function(){
+// Cuando se hace click en el botón de editar usuario
+$("#table").on("click", ".btnEditarUsuario", function() {
 
-        let datos = JSON.parse($(this).attr('data-cementerio'));
-        
-        // Guarda los datos en sessionStorage
-        sessionStorage.setItem('datosCementerio', JSON.stringify(datos));
-
-        // Redirige a la nueva vista
-        window.location.href ='http://localhost/happymemories/cementerio/actualizar';
-    });
-
-    var datos = sessionStorage.getItem('datosCementerio');
-
-    if (datos) {
-        datos = JSON.parse(datos);
-        console.log('Datos recibidos:', datos);
-        $("#idCementerioUp").val(datos['id_cementerio']);
-        $("#nombreUp").val(datos['nombre']);
-        $("#latitudUp").val(datos['latitud']);
-        $("#longitudUp").val(datos['longitud']);
-        $("#capacidadUp").val(datos['capacidad']);
-        $("#tipoUp").val(datos['tipo']);
-        $("#horaAperturaUp").val(datos['hora_apertura']);
-        $("#horaCierreUp").val(datos['hora_cierre']);
-        $("#departamentoUp").val(datos['departamento_id_departamento']);
-        $("#municipioUp").prop("disabled", true);
-
-        // Define el valor y el texto de la nueva opción
-        var valorNuevo = datos['municipio_id_municipio'];
-        var textoNuevo = datos['nombre_municipio'];
-        
-        // Crea una nueva opción
-        var nuevaOpcion = $('<option></option>')
-            .val(valorNuevo)
-            .text(textoNuevo);
-         // Añade la nueva opción al select
-        $('#municipioUp').append(nuevaOpcion);
-
-
-        // Elimina los datos de sessionStorage si ya no los necesitas
-        sessionStorage.removeItem('datosCementerio');
-    } else {
-        console.log('No se recibieron datos.');
-    }
-    /* Funcion para cargar municipios segun el departamento seleccionado */
-    $('#departamentoUp').on("click", function () {
-        if($('#departamentoUp').val()!=0){
-
-        let idDepartamento = $('#departamentoUp').val();
-        console.log(idDepartamento);
-        $.ajax({
-            url: '../cementerio/cargarMunicipio',
-            type: 'post',
-            data: { 'idDepartamento': idDepartamento },
-            success: function (respuesta) {
-                $("#municipioUp").prop("disabled", false);
-                $("#municipioUp").html(respuesta);
-                console.log(respuesta);
-            }
-        });
-        }
-    }); 
+    let data = JSON.parse($(this).attr('data-usuario'));
     
+
+    $("#id_usuario").val(data.id_usuario);
+    $("#nombreEditar").val(data.nombre_usuario);
+    $("#claveEditar").val("");          
+    $("#repetirEditar").val("");        
+    $("#rolEditar").val(data['rol']);
+
+    // Elimina los datos de sessionStorage
+    sessionStorage.removeItem('datosUsuario');
+});
+
+// Cargar datos en el formulario si existen en sessionStorage
+
     /* funciones Enviar datos actualizados de cementerio */
-    $('#formActualizarCementerio').submit(function (e) {
+    $('#formEditarUsuario').submit(function (e) {
         e.preventDefault();
-        $("#municipioUp").prop("disabled", false);
+        let data = new FormData(this)
+        for (let [key, value] of data.entries()) {
+    console.log(key, value);
+}
         $.ajax({
-            url: '../cementerio/actualizarCementerio',
+            url: 'usuario/editar',
             type: 'post',
             data: new FormData(this),
             contentType: false,
             processData: false,
             success: function (respuesta) {
-                console.log(respuesta);
-                $('#formActualizarCementerio')[0].reset();
+              console.log()
+                $('#formEditarUsuario')[0].reset();
                 Swal.fire({
                     title: "Se Actualizo cementerio!",
                     text: "con exito!",
@@ -563,12 +529,12 @@ $(function () {
             reverseButtons:true
         }).then((result)=>{
             if(result.isConfirmed){
-                var idCementerio=$(this).attr('data-borrarCementerio');
+                var idCementerio=$(this).attr('data-borrarUsuario');
     
                 $.ajax({
-                    url:'cementerio/borrarCementerio/',
+                    url:'usuario/borrar/',
                     type:"POST",
-                    data:{'idCementerio':idCementerio},
+                    data:{"id":idCementerio},
                     success:function(respuesta){
                         $("#table").DataTable().destroy();
                         $("#table tbody").html(respuesta);
@@ -994,7 +960,7 @@ $(function () {
     });
 
      /* funcion borrar departamento */
-     $("#table").on("click",".btBorrarDepartamento",function(){
+     $("#table").on("click",".btBorrarDoctor",function(){
         Swal.fire({
             title: 'Estas seguro?',
             text: "No podrá recuperar los datos!",
@@ -1008,12 +974,12 @@ $(function () {
             reverseButtons:true
         }).then((result)=>{
             if(result.isConfirmed){
-                var idDepartamento=$(this).attr('data-borrarDepartamento');
+                var idDoctor=$(this).attr('data-borrarServicio');
     
                 $.ajax({
-                    url:'departamento/borrarDepartamento/',
+                    url:'doctor/borrar/',
                     type:"POST",
-                    data:{'idDepartamento':idDepartamento},
+                    data:{'idDoctor':idDoctor},
                     success:function(respuesta){
                         $("#table").DataTable().destroy();
                         $("#table tbody").html(respuesta);
@@ -1538,7 +1504,6 @@ $(function () {
 
 
         $("#table").on("click",".btBuscarPerfil",function(e){
-
 
 
             let id=JSON.parse($(this).attr('data-idPersona'));
