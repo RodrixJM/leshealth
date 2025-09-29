@@ -1,0 +1,157 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>HappyHealth</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">Home</a></li>
+                <li class="breadcrumb-item active">Ejercicios</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <center>
+                        <h4 class="card-header">Registro y Listado de Ejercicios</h4>
+                    </center>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarEjercicio">
+                            <i class="fa-solid fa-plus"></i> Agregar Nuevo
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body mt-5">
+
+                    <table id="tableEjercicio" class="display">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre Ejercicio</th>
+                                <th>Repeticiones</th>
+                                <th>Series</th>
+                                <th>Paciente</th>
+                                <th>Imagen</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?= $this->tablaEjercicio ?>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Agregar Ejercicio -->
+    <div class="modal fade" id="modalAgregarEjercicio" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#ecc006">
+                    <h1 class="modal-title fs-5">Agregar Ejercicio</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarEjercicio" class="row" method="post" enctype="multipart/form-data">
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Nombre del Ejercicio</label>
+                            <input type="text" class="form-control" name="nombre_ejercicio" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-3">
+                            <label class="form-label">Repeticiones</label>
+                            <input type="text" class="form-control" name="repeticiones" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-3">
+                            <label class="form-label">Series</label>
+                            <input type="text" class="form-control" name="series" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Paciente</label>
+                            <select name="protagonista_id_protagonista" class="form-select" required>
+                                <option value="0">Seleccione Paciente</option>
+                                <?php foreach($this->pacientes as $p){ ?>
+                                    <option value="<?= $p['id_paciente'] ?>"><?= $p['primer_nombre'] . ' ' . $p['primer_apellido'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Imagen del Ejercicio</label>
+                            <input type="file" class="form-control" name="imagen_ejercicio" accept="image/*">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Ejercicio</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Ejercicio -->
+    <div class="modal fade" id="modalEditarEjercicio" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#ecc006">
+                    <h1 class="modal-title fs-5">Editar Ejercicio</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarEjercicio" class="row" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id_ejercicio" id="id_ejercicio">
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Nombre del Ejercicio</label>
+                            <input type="text" class="form-control" name="nombre_ejercicio" id="nombre_ejercicio" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-3">
+                            <label class="form-label">Repeticiones</label>
+                            <input type="text" class="form-control" name="repeticiones" id="repeticiones" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-3">
+                            <label class="form-label">Series</label>
+                            <input type="text" class="form-control" name="series" id="series" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Paciente</label>
+                            <select name="protagonista_id_protagonista" class="form-select" id="paciente_ejercicio" required>
+                                <option value="0">Seleccione Paciente</option>
+                                <?php foreach($this->pacientes as $p){ ?>
+                                    <option value="<?= $p['id_paciente'] ?>"><?= $p['primer_nombre'] . ' ' . $p['primer_apellido'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Imagen del Ejercicio</label>
+                            <input type="file" class="form-control" name="imagen_ejercicio" id="imagen_ejercicio" accept="image/*">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-edit"></i> Guardar Cambios</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

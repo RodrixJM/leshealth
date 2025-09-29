@@ -1,0 +1,189 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>HappyHealth</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">Home</a></li>
+                <li class="breadcrumb-item active">Medicación</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <center>
+                        <h4 class="card-header">Registro y Listado de Medicación</h4>
+                    </center>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarMedicacion">
+                            <i class="fa-solid fa-plus"></i> Agregar Nuevo
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body mt-5">
+
+                    <table id="tableMedicacion" class="display">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre Medicamento</th>
+                                <th>Dosis</th>
+                                <th>Frecuencia</th>
+                                <th>Hora</th>
+                                <th>Fecha</th>
+                                <th>Duración</th>
+                                <th>Paciente</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?= $this->tablaMedicacion ?>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Agregar Medicación -->
+    <div class="modal fade" id="modalAgregarMedicacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#ecc006">
+                    <h1 class="modal-title fs-5">Agregar Medicación</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarMedicacion" class="row" method="post" enctype="multipart/form-data">
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Nombre Medicamento</label>
+                            <input type="text" class="form-control" name="nombre_medicamento" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Dosis</label>
+                            <input type="text" class="form-control" name="dosis" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Frecuencia</label>
+                            <input type="text" class="form-control" name="frecuencia" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Hora Aplicación</label>
+                            <input type="time" class="form-control" name="hora_aplicacion" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Fecha</label>
+                            <input type="date" class="form-control" name="fecha" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Duración</label>
+                            <input type="text" class="form-control" name="duracion" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Paciente</label>
+                            <select name="protagonista" class="form-select required>
+                                <option value="0">Seleccione Paciente</option>
+                                <?php foreach($this->pacientes as $p){ ?>
+                                    <option value="<?= $p['id_usuario'] ?>" ><?= $p['nombre_usuario'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Imagen Medicamento</label>
+                            <input type="file" class="form-control" name="imagenMedicina" accept="image/*">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Medicación</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Medicación -->
+    <div class="modal fade" id="modalEditarMedicacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#ecc006">
+                    <h1 class="modal-title fs-5">Editar Medicación</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarMedicacion" class="row" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id_medicacion" id="id_medicacion">
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Nombre Medicamento</label>
+                            <input type="text" class="form-control" name="nombre_medicamento" id="nombre_medicamento" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Dosis</label>
+                            <input type="text" class="form-control" name="dosis" id="dosis" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Frecuencia</label>
+                            <input type="text" class="form-control" name="frecuencia" id="frecuencia" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Hora Aplicación</label>
+                            <input type="time" class="form-control" name="hora_aplicacion" id="hora_aplicacion" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Fecha</label>
+                            <input type="date" class="form-control" name="fecha" id="fecha" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Duración</label>
+                            <input type="text" class="form-control" name="duracion" id="duracion" required>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Paciente</label>
+                            <select name="protagonista_id_protagonista" class="form-select" id="paciente_medicacion" required>
+                                <option value="0">Seleccione Paciente</option>
+                                <?php foreach($this->pacientes as $p){ ?>
+                                    <option value="<?= $p['id_paciente'] ?>"><?= $p['primer_nombre'] . ' ' . $p['primer_apellido'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-lg-12">
+                            <label class="form-label">Imagen Medicamento</label>
+                            <input type="file" class="form-control" name="imagenMedicina" id="imagenMedicina" accept="image/*">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-edit"></i> Guardar Cambios</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

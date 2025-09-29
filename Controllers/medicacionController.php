@@ -2,16 +2,21 @@
 class medicacionController extends Controller
 {
     private $_medicacion;
+    private $_usuario;
 
     function __construct()
     {
         parent::__construct();
-        $this->_medicacion = $this->loadModel("medication");
+        $this->_usuario = $this->loadModel("usuario");
+        $this->_medicacion = $this->loadModel("medicacion");
     }
 
     public function index()
     {
         Sessiones::acceso('administrador');
+        $this->_view->pacientes = $this->_usuario->obtenerProtagonistas();
+        echo "<script>console.log(" . json_encode($this->_view->pacientes) . " )</script>";
+
         $this->_view->tabla = $this->verMedicacion();
         $this->_view->renderizar('medicacion');
     }
@@ -51,21 +56,17 @@ class medicacionController extends Controller
     {
         Sessiones::acceso('administrador');
 
-        if ($this->getTexto('validar') == 1) {
             $this->_medicacion->insertarMedicacion(
-                $this->getTexto('nombre'),
+                $this->getTexto('nombre_medicamento'),
                 $this->getTexto('dosis'),
                 $this->getTexto('frecuencia'),
-                $this->getTexto('hora'),
+                $this->getTexto('hora_aplicacion'),
                 $this->getTexto('fecha'),
                 $this->getTexto('duracion'),
                 $this->getTexto('protagonista'),
                 "" // imagen opcional, puedes manejar upload aparte
             );
-            echo $this->verMedicacion();
-        }
-
-        $this->_view->renderizar('agregar');
+                    echo $this->verMedicacion();
     }
 
     public function editar($id)

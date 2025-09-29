@@ -1,5 +1,5 @@
 <?php
-class dietaModel extends Model
+class alimentacionModel extends Model
 {
     public function __construct()
     {

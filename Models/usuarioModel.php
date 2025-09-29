@@ -8,6 +8,19 @@ class usuarioModel extends Model
         return $this->_db->query("select *from usuario;")->fetchAll();
     }
 
+     public function obtenerUsuariosPorRol($rol)
+    {
+        $query = $this->_db->prepare("SELECT * FROM usuario WHERE rol = :rol");
+        $query->execute(['rol' => $rol]);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerProtagonistas()
+    {
+        return $this->obtenerUsuariosPorRol('protagonista');
+    }
+
+
     public function obtenerUsuarioPorId($id)
 {
     $query = $this->_db->prepare("SELECT * FROM usuario WHERE id_usuario = :id LIMIT 1");
