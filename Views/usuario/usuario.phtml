@@ -29,12 +29,19 @@
                 <div class="card-body mt-5">
 
                     <table id="table" class="display">
+                        <style>
+  .password-cell {
+    max-width: 150px;       
+    white-space: nowrap;    
+    overflow: hidden;       
+    text-overflow: ellipsis;
+  }
+</style>
                         <thead>
                             <th>ID usuario</th>
                             <th>Nombre usuario</th>
                             <th>Password</th>
                             <th>Rol</th>
-
                             <th>Acción</th>
                         </thead>
                         <tbody>
@@ -126,5 +133,65 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalEditarUsuario" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="modalEditarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#ecc006">
+                <h1 class="modal-title fs-5" id="modalEditarLabel">Editar Usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row" method="post" id="formEditarUsuario" enctype="multipart/form-data">
+                    <input type="hidden" id="id_usuario" name="id_usuario">
+
+                    <div class="mb-3 col-lg-12">
+                        <label for="nombreEditar" class="form-label">Nombre Usuario</label>
+                        <input type="text" class="form-control" id="nombreEditar" name="nombre" required>
+                        <span id="resultEditar"></span>
+                    </div>
+
+                    <div class="mb-3 col-lg-6">
+                        <label for="claveEditar" class="form-label">Contraseña Usuario</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="claveEditar" name="clave" required>
+                            <span id="ocultarEditar" class="input-group-text">
+                                <i onclick="ocultarPass('claveEditar',this);" class="fa-solid fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 col-lg-6">
+                        <label for="repetirEditar" class="form-label">Repita Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="repetirEditar" name="repetir" required>
+                            <span class="input-group-text">
+                                <i onclick="ocultarPass('repetirEditar',this);" class="fa-solid fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 col-lg-12">
+                        <label for="rolEditar" class="form-label">Rol Usuario</label>
+                        <select name="rol" id="rolEditar" class="form-select" required>
+                            <option value="0">Seleccione Rol De Usuario</option>
+                            <option value="administrador">Administrador</option>
+                            <option value="funcionario">Funcionario</option>
+                            <option value="familiar">Familiar</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <i class="fa-solid fa-ban"></i> Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-edit"></i> Guardar Cambios
+                </button>
+            </div>
+                </form>
+        </div>
+    </div>
+</div>
+
 
 </main>

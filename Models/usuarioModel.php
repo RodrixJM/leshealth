@@ -8,6 +8,14 @@ class usuarioModel extends Model
         return $this->_db->query("select *from usuario;")->fetchAll();
     }
 
+    public function obtenerUsuarioPorId($id)
+{
+    $query = $this->_db->prepare("SELECT * FROM usuario WHERE id_usuario = :id LIMIT 1");
+    $query->execute(['id' => $id]);
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+
     public function obtenerDepartamento()
     {
         return $this->_db->query("select * from departamento;")->fetchAll();
@@ -20,7 +28,7 @@ class usuarioModel extends Model
 
     public function insertarUsuario($nombre, $clave, $rol)
     {
-        $hash=password_hash($clave, PASSWORD_DEFAULT);
+        $hash = password_hash($clave, PASSWORD_DEFAULT);
         $this->_db->prepare('insert into usuario(nombre_usuario,clave,rol)
     values(:nombre,:clave,:rol)')->execute(array(
                     'nombre' => $nombre,
@@ -29,6 +37,27 @@ class usuarioModel extends Model
                 ));
 
     }
+
+    public function editarUsuario($id, $nombre, $clave, $rol)
+    {
+        $hash = password_hash($clave, PASSWORD_DEFAULT);
+        $this->_db->prepare('UPDATE usuario SET nombre_usuario = :nombre, clave = :clave, rol = :rol WHERE id_usuario = :id')
+            ->execute(array(
+                'nombre' => $nombre,
+                'clave' => $hash,
+                'rol' => $rol,
+                'id' => $id
+            ));
+    }
+
+    public function borrarUsuario($id)
+    {
+        $this->_db->prepare('DELETE FROM usuario WHERE id_usuario = :id')
+            ->execute(array(
+                'id' => $id
+            ));
+    }
+
 
     public function actualizarCementerio($nombreUp, $municipioUp, $latitudUp, $longitudUp, $capacidadUp, $tipoUp, $horaAperturaUp, $horaCierreUp, $idCementerioUp)
     {

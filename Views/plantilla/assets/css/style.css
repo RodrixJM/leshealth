@@ -1260,3 +1260,10 @@ h6 {
   font-size: 13px;
   color: #48276f;
 }
+
+.password-cell {
+    max-width: 150px;       /* límite de ancho */
+    white-space: nowrap;    /* no saltar línea */
+    overflow: hidden;       /* oculta el resto */
+    text-overflow: ellipsis;/* agrega "..." */
+  }
