@@ -856,16 +856,16 @@ $("#table").on("click", ".btnEditarUsuario", function() {
     // ==========================
     $("#formAgregarMedicacion").submit(function(e) {
         e.preventDefault();
-        let data = new FormData(this);
+        let dataForm = new FormData(this);
 
-        for (let [key, value] of data.entries()) {
+        for (let [key, value] of dataForm.entries()) {
         console.log(key + ": " + value);
     }
 
         $.ajax({
             url: 'medicacion/agregar',
             type: 'POST',
-            data: data,
+            data: dataForm,
             contentType: false,
             processData: false,
             success: function(respuesta) {
