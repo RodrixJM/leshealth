@@ -82,7 +82,7 @@ class alimentacionController extends Controller
 
         $this->_view->renderizar('editar');
     }
-
+//
     public function borrar()
     {
         $id = $this->getTexto('id');

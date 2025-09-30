@@ -944,12 +944,12 @@ $("#table").on("click", ".btnEditarUsuario", function() {
     // ==========================
     // 4. Borrar Dieta
     // ==========================
-    $("#tableDieta").on("click", ".btnBorrarDieta", function() {
+    $("#table").on("click", ".btnBorrarDieta", function() {
         let id = $(this).attr('data-borrarDieta');
 
         if(confirm("¿Está seguro de eliminar este registro de dieta?")) {
             $.ajax({
-                url: 'dieta/borrarDieta',
+                url: 'dieta/borrar',
                 type: 'POST',
                 data: { idDieta: id },
                 success: function(respuesta) {
