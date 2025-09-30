@@ -14,7 +14,7 @@
     if (Sessiones::accesoVista('protagonista')) {
       ?>
     <li class="nav-item">
-      <a class="nav-link collapsed" href="<?= BASE_URL ?>medicacion">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>medication">
         <i class="fa-solid fa-pills"></i>
         <span>Medicacion</span>
       </a>
@@ -52,7 +52,7 @@
     </li><!-- End Dashboard Nav -->
 
      <li class="nav-item">
-      <a class="nav-link collapsed" href="<?= BASE_URL ?>registro">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>signos">
         <i class="fa-solid fa-file-circle-plus"></i>
         <span>Registrar Signos</span>
       </a>

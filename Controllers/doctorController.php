@@ -34,7 +34,7 @@ class doctorController extends Controller
           data-bs-target="#modalEditarDoctor">
             <i style="color: white;" class="fa-solid fa-pen"></i>
             </button>
-   <button data-borrarServicio=' . $fila[$i]['id_doctor'] . ' class="btn btn-danger btn-circle btBorrarDepartamento">
+   <button data-borrarServicio=' . $fila[$i]['id_doctor'] . ' class="btn btn-danger btn-circle btBorrarDoctor">
    <i class="fas fa-trash"> </i>
    </button>
 
@@ -99,39 +99,59 @@ class doctorController extends Controller
         
     }
 
-     public function editarDoctor(){
+     public function borrar()
+    {        
+        $id = $this->getTexto('idDoctor');
 
-        function upload_image()
-        {
-         if(isset($_FILES["imagenUp"]))
-         {
-          $extension = explode('.', $_FILES['imagenUp']['name']);
-          $new_name = rand() . '.' . $extension[1];
-          $destination = './Views/plantilla/assets/img/' . $new_name;
-          move_uploaded_file($_FILES['imagenUp']['tmp_name'], $destination);
-          return $new_name;
-         }
-        }
-        $image = '';
-        if($_FILES["imagenUp"]["name"] != '')
-          {
-           $image = upload_image();
-        
-           $this->_doctor->actualizarDoctor($this->getTexto('idUp'),$this->getTexto('nombreUp'),$this->getTexto('sexoUp'),$this->getTexto('especialidadUp'),
-           $this->getTexto('numeroUp'),
-           $this->getTexto('correoUp'),$this->getTexto('nombreUsUp'),$this->getTexto('claveUp'),$image);
-           echo $this->verDoctor();
-           }
-           else{
-            $this->_doctor->insertarServicioSinImagen($this->getTexto('tipoServicio'),$this->getTexto('descripcionServicio'),$this->getTexto('precioServicio'));
-            echo $this->verDoctor();
-           }
-        
-          
-          
-   
-        
+        Sessiones::acceso('administrador');
+        $this->_doctor->borrarServicio($id);
+        echo $this->verDoctor();
     }
+
+ public function editarDoctor() {
+
+    function upload_image() {
+        if(isset($_FILES["imagenUp"]) && $_FILES["imagenUp"]["name"] != '') {
+            $extension = explode('.', $_FILES['imagenUp']['name']);
+            $new_name = rand() . '.' . $extension[1];
+            $destination = './Views/plantilla/assets/img/' . $new_name;
+            move_uploaded_file($_FILES['imagenUp']['tmp_name'], $destination);
+            return $new_name;
+        }
+        return '';
+    }
+
+    $image = upload_image();
+
+    if($image != '') {
+        $this->_doctor->actualizarDoctor(
+            $this->getTexto('idUp'),
+            $this->getTexto('nombreUp'),
+            $this->getTexto('sexoUp'),
+            $this->getTexto('especialidadUp'),
+            $this->getTexto('numeroUp'),
+            $this->getTexto('correoUp'),
+            $this->getTexto('nombreUsUp'),
+            $this->getTexto('claveUp'),
+            $image
+        );
+    } else {
+        // Actualiza doctor sin cambiar la imagen
+        $this->_doctor->actualizarDoctorSinImagen(
+            $this->getTexto('idUp'),
+            $this->getTexto('nombreUp'),
+            $this->getTexto('sexoUp'),
+            $this->getTexto('especialidadUp'),
+            $this->getTexto('numeroUp'),
+            $this->getTexto('correoUp'),
+            $this->getTexto('nombreUsUp'),
+            $this->getTexto('claveUp')
+        );
+    }
+
+    echo $this->verDoctor();
+}
+
 
 
      

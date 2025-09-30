@@ -12,7 +12,6 @@ class loginController extends Controller{
         if($this->getTexto('validar') == 1)
         {
             $datos = $this->_login->obtenerUsuario($this->getTexto('user'));
-    
             // Verificar si obtenerUsuario devuelve un array válido
             if($datos && is_array($datos)) {
                 if(password_verify($this->getTexto('clave'), $datos["clave"]))

@@ -1,4 +1,5 @@
 <?php
+//CONFIGURACION
 define('APP_NOMBRE','LEShealth');
 define('BASE_URL','http://localhost/leshealth/');
 define('DEFAULT_CONTROLLER','index');
