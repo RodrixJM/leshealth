@@ -1,0 +1,270 @@
+<main id="main" class="main">
+
+    
+ 
+    <div class="pagetitle">
+        <h1 style=" font-family: 'Poppins' ">Les health</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>" index>Home</a></li>
+                <li class="breadcrumb-item active">Signos</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <center>
+                        <h4 class="card-header">Registro y Control de Signos Vitales con <img class="img-fluid"
+                                style="width:3%" src="<?= PLANTILLA ?>assets/img/isotipo.svg" alt="">
+                            <span class="d-none d-lg-block"
+                                style="color: black; font-family: 'Poppins', sans-serif; font-weight: 900;">LES
+                                health</span>
+                        </h4>
+                    </center>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                        <!-- Button trigger modal -->
+                        <button style="background-color: #48276f; border-color: #48276f;"  type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarSigno">
+                            <i class="fa-solid fa-plus"></i> Agregar Nuevo
+                        </button>
+                    </div>
+
+
+                </div>
+                <div class="card-body mt-5">
+                   
+                    <table id="table" class="display">
+                        <thead>
+                            <th>ID Signo</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                            
+                            <th>Acción</th>
+                        </thead>
+                        <tbody>
+                            <?= $this->tabla ?>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+    <!-- Modal  para agregar Signos-->
+    <div class="modal fade" id="modalAgregarSigno" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#48276f">
+                    <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
+                        class="modal-title fs-5" id="exampleModalLabel"> Agregar Nuevo Reporte de Signos <i class="fa-solid fa-hospital-user"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form class="row" method="post" id="formAgregarSigno" enctype="multipart/form-data">
+
+                         <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">ID protagonista</label>
+                                <input type="text" class="form-control" id="idP" name="idP" required>
+                            </div>
+
+                         <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                            </div>
+
+                        
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Hora</label>
+                                <input  step="1" type="time" class="form-control" id="hora" name="hora" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Tipo</label>
+                                <select class="form-select" name="tipo" id="tipo">
+                                    <option value="">Seleccione una Opción</option>
+                                    <option value="glucosa">Glucosa</option>
+                                    <option value="presion">Presion</option>
+                                </select>
+                            </div>
+
+                             <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Valor</label>
+                                <input type="number" class="form-control" id="valor" name="valor" required>
+                            </div>
+                           
+
+                         
+
+                           
+                            
+
+
+
+                          
+
+
+
+
+                            
+
+                          
+
+
+
+                      
+
+
+
+                          
+                           
+
+                           
+
+
+
+                           
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>
+                        Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar
+                        Registro</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+      <!-- Modal  para agregar Signos-->
+    <div class="modal fade" id="modalActualizarSigno" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#48276f">
+                    <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
+                        class="modal-title fs-5" id="exampleModalLabel"> Agregar Nuevo Reporte de Signos <i class="fa-solid fa-hospital-user"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form class="row" method="post" id="formEditarSigno" enctype="multipart/form-data">
+
+                          <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">ID signo</label>
+                                <input type="text" class="form-control" id="idSigno" name="idSigno" required>
+                            </div>
+
+                         <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">ID protagonista</label>
+                                <input type="text" class="form-control" id="idPUp" name="idPUp" required>
+                            </div>
+
+                         <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" id="fechaUp" name="fechaUp" required>
+                            </div>
+
+                        
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Hora</label>
+                                <input type="time" step="1" class="form-control" id="horaUp" name="horaUp" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Tipo</label>
+                                <select class="form-select" name="tipoUp" id="tipoUp">
+                                    <option value="">Seleccione una Opción</option>
+                                    <option value="glucosa">Glucosa</option>
+                                    <option value="presion">Presion</option>
+                                </select>
+                            </div>
+
+                             <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Valor</label>
+                                <input type="number" class="form-control" id="valorUp" name="valorUp" required>
+                            </div>
+                           
+
+                         
+
+                           
+                            
+
+
+
+                          
+
+
+
+
+                            
+
+                          
+
+
+
+                      
+
+
+
+                          
+                           
+
+                           
+
+
+
+                           
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>
+                        Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar
+                        Registro</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+<script>
+
+  let usuario = JSON.parse(<?= $this->usuario?>);
+    console.log(usuario);
+     $("#idP").val(usuario);
+
+</script>

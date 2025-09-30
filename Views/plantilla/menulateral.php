@@ -52,7 +52,7 @@
     </li><!-- End Dashboard Nav -->
 
      <li class="nav-item">
-      <a class="nav-link collapsed" href="<?= BASE_URL ?>registro">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>signos">
         <i class="fa-solid fa-file-circle-plus"></i>
         <span>Registrar Signos</span>
       </a>

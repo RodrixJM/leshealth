@@ -331,6 +331,141 @@ if (uvIndex <= 2) {
     });
 
 
+    /* Funcion para mandar el formulario de registro de signos y agregar a la BD */
+
+       $('#formAgregarSigno').submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'signos/agregarSigno',
+            type: 'post',
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+                $('#modalAgregarSigno').modal('hide');
+                $('#formAgregarSigno')[0].reset();
+                $("#table").DataTable().destroy();
+                $("#table tbody").html(respuesta);
+                inicializarDataTable();
+                Swal.fire({
+                    title: "Se agrego registro!",
+                    text: "con exito!",
+                    icon: "success"
+                  });
+                
+            }
+
+
+        });
+    });
+
+
+    /* Funcion para cargar informacion en el formulario para editar signos */
+    $("#table").on("click",".btnEditarSigno", function(){
+        $('#modalActualizarSigno').modal({backdrop: 'static', keyboard: false});
+        var datos = JSON.parse($(this).attr('data-Signos'));
+        console.log(datos);
+         $("#idSigno").val(datos['id_signo']);
+        $("#idPUp").val(datos['protagonista_id_protagonista']);
+        $("#fechaUp").val(datos['fecha']);
+        $("#horaUp").val(datos['hora']);
+        $("#tipoUp").val(datos['tipo']);
+        $("#valorUp").val(datos['valor']);
+        
+      });
+    
+       /* Funcion para editar el formulario de registro de signos y agregar a la BD */
+
+       $('#formEditarSigno').submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'signos/editarSigno',
+            type: 'post',
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+                $('#modalActualizarSigno').modal('hide');
+                $('#formEditarSigno')[0].reset();
+                $("#table").DataTable().destroy();
+                $("#table tbody").html(respuesta);
+                inicializarDataTable();
+                Swal.fire({
+                    title: "Se agrego registro!",
+                    text: "con exito!",
+                    icon: "success"
+                  });
+                
+            }
+
+
+        });
+    });
+
+    /* Borrar Signo */
+
+
+    $("#table").on("click",".btBorrarSigno",function(){
+        Swal.fire({
+            title: 'Estas seguro?',
+            text: "No podrá recuperar los datos!",
+            icon: 'warning',
+            confirmButtonColor: '#d9534f',
+            cancelButtonColor: '#428bca',
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Sí, Eliminarlo!',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons:true
+        }).then((result)=>{
+            if(result.isConfirmed){
+                var idSigno=$(this).attr('data-borrarSigno');
+    console.log(idSigno);
+                $.ajax({
+                    url:'signos/borrarSigno',
+                    type:"POST",
+                    data:{"id":idSigno},
+                    success:function(respuesta){
+                        $("#table").DataTable().destroy();
+                        $("#table tbody").html(respuesta);
+                        inicializarDataTable();
+                            Swal.fire(
+                            'Borrado',
+                            'El registro a sido eliminado',
+                            'success'
+                            )
+    
+                        
+                    }
+                });
+    
+    
+    
+                
+    
+    
+            }
+            else if (
+                result.dismiss === Swal.DismissReason.cancel
+              ){
+                Swal.fire(
+                'cancelado',
+                'el registro esta a salvo',
+                'error'
+        
+                )
+        
+              }
+    
+        });
+    
+    
+    });
+
+
+
 
       /* Funcion para mandar el formulario de agendar cita vista protagonista */
 
