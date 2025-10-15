@@ -76,8 +76,35 @@
 
         <?php } ?>
 
+<?php
+    if (Sessiones::accesoVista('doctor')) {
+      ?>
+
+       <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>medicacion">
+        <i class="fa-solid fa-pills"></i>
+        <span>Medicacion</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>alimentacion">
+        <i class="fa-solid fa-utensils"></i>
+        <span>Alimentacion</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>ejercicio">
+        <i class="fa-solid fa-dumbbell"></i>
+        <span>Ejercicio</span>
+       
+      </a>
+    </li><!-- End Dashboard Nav -->
 
 
+
+ <?php } ?>
 
 
     <?php
