@@ -1,0 +1,165 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1 style=" font-family: 'Poppins' ">Les health</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>" index>Home</a></li>
+                <li class="breadcrumb-item active">Protagonista</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <center>
+                        <h4 class="card-header">Registro y Listado de Reservas de Citas Medicas en <img
+                                class="img-fluid" style="width:3%" src="<?= PLANTILLA ?>assets/img/isotipo.svg" alt="">
+                            <span class="d-none d-lg-block"
+                                style="color: black; font-family: 'Poppins', sans-serif; font-weight: 900;">LES
+                                health</span>
+                        </h4>
+                    </center>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarReserva">
+                            <i class="fa-solid fa-calendar"></i> Agendar Cita
+                        </button>
+                    </div>
+
+
+                </div>
+                <div class="card-body mt-5">
+
+                    <table id="table" class="display">
+                        <thead>
+                            <th>Nombre Protagonista</th>
+                            <th>Nombre Doctor</th>
+                            <th>Especialidad</th>
+                            <th>Hora Cita</th>
+                            <th>Fecha Cita</th>
+                            <th>Prioridad</th>
+                           
+                            <th>Acción</th>
+                        </thead>
+                        <tbody>
+                            <?= $this->tabla ?>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+    <!-- Modal  para agregar Departamento-->
+    <div class="modal fade" id="modalAgregarReserva" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"> 
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#48276f">
+                    <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
+                        class="modal-title fs-5" id="exampleModalLabel"> Agendar Nuevo Cita Con Especialista <i
+                            class="fa-solid fa-calendar"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form class="row" method="post" id="formAgregarReserva" enctype="multipart/form-data">
+
+                            <div class=" col-lg-12">
+                                <label hidden for="" class="form-label">ID Protagonista</label>
+                                <input type="text" class="form-control" id="id" name="id" value="<?= $this->id ?>" hidden>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Hora Cita</label>
+                                <input type="time" class="form-control" id="hora" name="hora" required>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Fecha Cita</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                            </div>
+
+
+
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Especialista</label>
+                                <select id="especialista" name="especialista" class="form-select">
+                                    <?= $this->especialista ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Prioridad Atención</label>
+                                <select name="prioridad" class="form-select" id="prioridadSelect">
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="Alta">
+                                        🔴 Alta <i class="bi bi-exclamation-circle-fill"></i>
+                                    </option>
+                                    <option value="Media">
+                                        🟠 Media <i class="bi bi-exclamation-triangle-fill"></i>
+                                    </option>
+                                    <option value="Baja">
+                                        🟢 Baja <i class="bi bi-check-circle-fill"></i>
+                                    </option>
+                                </select>
+                            </div>
+
+
+
+
+
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="fechaDefuncion" class="form-label">Motivo</label>
+                                <textarea class="form-control" name="motivo" id="motivo" rows="5"></textarea>
+                            </div>
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">Foto del area afectada</label>
+                                <input type="file" class="form-control" id="imagen" name="imagen" required
+                                    accept="image/jpg, image/png, image/jpeg">
+                            </div>
+
+                            <div id="previewContainer" class="mt-3 text-center">
+                                <img id="previewImage" src="#" alt="Previsualización"
+                                    style="max-width: 150px; display: none;" />
+                            </div>
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>
+                        Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar
+                        Registro</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</main>

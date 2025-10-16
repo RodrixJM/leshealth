@@ -52,7 +52,7 @@
     </li><!-- End Dashboard Nav -->
 
      <li class="nav-item">
-      <a class="nav-link collapsed" href="<?= BASE_URL ?>registro">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>signos">
         <i class="fa-solid fa-file-circle-plus"></i>
         <span>Registrar Signos</span>
       </a>
@@ -76,8 +76,51 @@
 
         <?php } ?>
 
+<?php
+    if (Sessiones::accesoVista('doctor')) {
+      ?>
+
+       <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>medicacion">
+        <i class="fa-solid fa-pills"></i>
+        <span>Medicacion</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>alimentacion">
+        <i class="fa-solid fa-utensils"></i>
+        <span>Alimentacion</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>ejercicio">
+        <i class="fa-solid fa-dumbbell"></i>
+        <span>Ejercicio</span>
+       
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>confirmacion">
+       <i class="fa-solid fa-notes-medical"></i>
+        <span>Solicitudes Consulta</span>
+       
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+         <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>paciente">
+      <i class="fa-solid fa-bed-pulse"></i>
+        <span>Mis Pacientes</span>
+       
+      </a>
+    </li><!-- End Dashboard Nav -->
 
 
+
+ <?php } ?>
 
 
     <?php
