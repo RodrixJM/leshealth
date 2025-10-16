@@ -19,7 +19,6 @@ class medicacionController extends Controller
 
         $this->_view->tabla = $this->verMedicacion();
         $this->_view->renderizar('medicacion');
-                echo $this->verMedicacion();
 
         
     }

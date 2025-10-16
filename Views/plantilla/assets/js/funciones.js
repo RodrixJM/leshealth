@@ -741,6 +741,21 @@ $("#table").on("click", ".btnEditarUsuario", function() {
 
 });
 
+$("#formRegistrarUsuario").submit(function(e) {
+        e.preventDefault();
+        let data = new FormData(this);
+        $.ajax({
+            url: 'register/registrarUsuario',
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function() {
+                alert("E")
+            }
+        });
+    });
+
 
     // ===========================
     // DIETAAAAAAAAAAAAAAAAA
