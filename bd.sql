@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB;
 
+select *from usuario;
+
  create table departamento(
  id_departamento int auto_increment primary key,
  nombre_departamento varchar(50) NOT NULL
@@ -65,9 +67,44 @@ protagonista_id_protagonista int,
 motivo varchar(45),
 prioridad varchar(45),
 imagen varchar(20),
+estado varchar(45),
 foreign key (doctor_id_doctor) references doctor(id_doctor),
 foreign key (protagonista_id_protagonista) references protagonista(id_paciente)
 )engine=InnoDB;
+alter table reserva add column estado varchar(45);  
+
+
+
+select *from reserva;
+select *from reserva inner join doctor on id_doctor=doctor_id_doctor inner join protagonista on protagonista_id_protagonista=id_paciente where id_doctor=4;
+select *from doctor where usuario='fanor';
+select *from reserva inner join doctor on id_doctor=doctor_id_doctor inner join protagonista on protagonista_id_protagonista=id_paciente where id_doctor=7 and estado='sin aceptar';
+describe reserva;
+create table cita(
+id_cita int primary key auto_increment,
+hora time,
+fecha date,
+motivo text,
+presion varchar(45),
+tipo varchar(20),
+
+
+)engine=InnoDB;
+
+create table confirmacion(
+id_confirmarcion int primary key auto_increment,
+doctor_id_doctor int,
+protagonista_id_protagonista int,
+id_cita_confirmacion int,
+foreign key (doctor_id_doctor) references doctor(id_doctor),
+foreign key (protagonista_id_protagonista) references protagonista(id_paciente),
+foreign key (id_cita_confirmacion) references reserva(id_cita)
+)engine=InnoDB;
+
+describe confirmacion;
+select *from confirmacion;
+
+select *from confirmacion inner join doctor on doctor_id_doctor=id_doctor inner join protagonista on protagonista_id_protagonista=id_paciente inner join reserva on id_cita_confirmacion=id_cita where id_doctor=7 and estado='aceptada';
 
 
 create table medicacion(
