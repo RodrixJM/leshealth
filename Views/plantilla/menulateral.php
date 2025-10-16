@@ -102,6 +102,22 @@
       </a>
     </li><!-- End Dashboard Nav -->
 
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>confirmacion">
+       <i class="fa-solid fa-notes-medical"></i>
+        <span>Solicitudes Consulta</span>
+       
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+         <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>paciente">
+      <i class="fa-solid fa-bed-pulse"></i>
+        <span>Mis Pacientes</span>
+       
+      </a>
+    </li><!-- End Dashboard Nav -->
+
 
 
  <?php } ?>

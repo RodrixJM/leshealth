@@ -27,15 +27,17 @@ class reservaModel extends Model
 
      public function insertarReserva($hora, $fecha, $especialista, $prioridad, $motivo, $idProtagonista, $imagen)
     {
-        $this->_db->prepare('insert into reserva(hora,fecha,doctor_id_doctor,protagonista_id_protagonista,motivo,prioridad,imagen)
-    values(:hora,:fecha,:doctor,:protagonista,:motivo,:prioridad,:imagen)')->execute(array(
+        $estado='sin aceptar';
+        $this->_db->prepare('insert into reserva(hora,fecha,doctor_id_doctor,protagonista_id_protagonista,motivo,prioridad,imagen,estado)
+    values(:hora,:fecha,:doctor,:protagonista,:motivo,:prioridad,:imagen,:estado)')->execute(array(
                     'hora' => $hora,
                     'fecha' => $fecha,
                     'doctor' => $especialista,
                     'protagonista' => $idProtagonista,
                     'motivo' => $motivo,
                     'prioridad' => $prioridad,
-                    'imagen' => $imagen
+                    'imagen' => $imagen,
+                    'estado' => $estado
                     
                 ));
 
