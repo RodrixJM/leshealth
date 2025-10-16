@@ -13,14 +13,21 @@ class registerController extends Controller
     }
 
     public function registrarUsuario(){
-         $this->_register->registrarUsuario(
-            $this->getTexto("user"),
-            $this->getTexto("clave"),
-            $this->getTexto("rol")
-        );
-        $this->_view->renderizar("register");
+        $user = $this->getTexto("user");
+        $clave = $this->getTexto("clave");
+        $rol = $this->getTexto("rol");
+
+        $this->_register->registrarUsuario(
+            $user,
+            $clave,
+            $rol);
+
+            Sessiones::setClave('rol', $rol);
+            Sessiones::setClave('autenticado', true);
+            Sessiones::setClave('usuario', $user);
+            Sessiones::setClave('clave', $clave);
     }
-    
+
     public function index()
     {
        $this->_view->renderizar('register');

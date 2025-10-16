@@ -1,0 +1,105 @@
+<form class="row g-3 justify-content-center" method="post" id="formAgregarProtagonista" enctype="multipart/form-data">
+
+    <div class="col-12 col-md-6">
+        <label for="pNombre" class="form-label">Primer Nombre</label>
+        <input type="text" name="pNombre" id="pNombre" class="form-control" required>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="sNombre" class="form-label">Segundo Nombre</label>
+        <input type="text" name="Snombre" id="sNombre" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="pApellido" class="form-label">Primer Apellido</label>
+        <input type="text" name="pApellido" id="pApellido" class="form-control" required>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="sApellido" class="form-label">Segundo Apellido</label>
+        <input type="text" name="sApellido" id="sApellido" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="cedula" class="form-label">Cédula</label>
+        <input type="text" name="cedula" id="cedula" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="municipioOrigen" class="form-label">Municipio</label>
+        <select name="municipioOrigen" id="municipioOrigen" class="form-select">
+            <option value="">Seleccione...</option>
+            <!-- Opciones pobladas dinámicamente -->
+        </select>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="fechaNacio" class="form-label">Fecha de nacimiento</label>
+        <input type="date" name="fechaNacio" id="fecha_nacimiento" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="edad" class="form-label">Edad</label>
+        <input type="number" name="edad" id="edad" class="form-control" min="0">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="sexo" class="form-label">Sexo</label>
+        <select name="sexo" id="sexo" class="form-select">
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+        </select>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="nacionalidad" class="form-label">Nacionalidad</label>
+        <select name="nacionalidad" id="nacionalidad" class="form-select">
+            <option value="Nicaraguense">Nicaraguense</option>
+            <option value="Extranjero">Extranjero</option>
+        </select>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="estadoCivil" class="form-label">Estado Civil</label>
+        <select name="estadoCivil" id="estadoCivil" class="form-select">
+            <option value="0">Seleciona Una Opción</option>
+                                    <option value="Union Libre">Unión de Hecho</option>
+                                    <option value="Casado">Casado(a)</option>
+                                    <option value="Soltero">Soltero(a)</option>
+                                    <option value="Otro">Otro</option>
+        </select>
+    </div>
+
+    <div class="col-12">
+        <label for="ocupacion" class="form-label">Ocupación</label>
+        <input type="text" name="ocupacion" id="ocupacion" class="form-control">
+    </div>
+
+    <div class="col-12">
+        <label for="direccion" class="form-label">Dirección</label>
+        <textarea name="direccion" id="direccion" class="form-control" rows="2"></textarea>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="correo" class="form-label">Correo</label>
+        <input type="email" name="correo" id="correo" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="numero" class="form-label">Teléfono</label>
+        <input type="tel" name="numero" id="numero" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="imagen" class="form-label">Imagen (opcional)</label>
+        <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*">
+    </div>
+
+    <!-- Campo oculto para indicar el rol -->
+    <input type="hidden" name="rol" value=<?php echo Sessiones::getClave("rol"); ?>>
+
+    <div class="col-12 d-grid mt-3">
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </div>
+
+</form>

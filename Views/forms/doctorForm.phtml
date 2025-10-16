@@ -1,0 +1,53 @@
+<form class="row g-3 justify-content-center" method="post" id="formAgregarDoctor" enctype="multipart/form-data">
+
+    <div class="col-12 col-md-6">
+        <label for="nombre_doctor" class="form-label">Nombre del Doctor</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" required>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="sexo" class="form-label">Sexo</label>
+        <select name="sexo" id="sexo" class="form-select">
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+        </select>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="especialidad" class="form-label">Especialidad</label>
+        <input type="text" name="especialidad" id="especialidad" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="correo" class="form-label">Correo</label>
+        <input type="email" name="correo" id="correo" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" name="numero" id="numero" class="form-control">
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="usuario" class="form-label">Usuario (login)</label>
+        <input type="text" name="nombreU" id="nombreU" class="form-control" required disabled value=<?php echo Sessiones::getClave('usuario'); ?>>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="clave" class="form-label">Clave (password)</label>
+        <input type="password" name="clave" id="clave" class="form-control" required disabled value=<?php echo Sessiones::getClave('clave'); ?>>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label for="imagen" class="form-label">Imagen (opcional)</label>
+        <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*">
+    </div>
+
+    <!-- Campo oculto para indicar el rol -->
+    <input type="hidden" name="rol" value="doctor">
+
+    <div class="col-12 d-grid mt-3">
+        <button type="submit" class="btn btn-primary">Registrar Doctor</button>
+    </div>
+
+</form>

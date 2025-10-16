@@ -945,17 +945,18 @@ $(function () {
 
 $("#formRegistrarUsuario").submit(function(e) {
         e.preventDefault();
-        let data = new FormData(this);
-        $.ajax({
-            url: 'register/registrarUsuario',
-            type: 'POST',
-            data: data,
-            contentType: false,
-            processData: false,
-            success: function() {
-                alert("E")
-            }
-        });
+        let data = new FormData(this);    
+    
+    $.ajax({
+        url: 'register/registrarUsuario',
+        type: 'POST',
+        data: data,
+        contentType: false,
+        processData: false,
+        success: function() {
+            window.location.href = 'complete';
+        }
+    });
     });
 
 
