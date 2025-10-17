@@ -125,14 +125,12 @@ public function getSigno()
 
        public function index()
     {
-        $this->_view->colaborador=$this->getColaboradores();
-
+      $this->_view->colaborador=$this->getColaboradores();
       $this->_view->citas=$this->getCitas();
       $this->_view->medicacion=$this->getMedicacion();
       $this->_view->dieta=$this->getDieta();
       $this->_view->ejercicio=$this->getEjercicio();
-      $this->_view->signo=$this->getSigno();
-       
+      $this->_view->signo=$this->getSigno();       
       $this->_view->renderizar('index');
     }
 

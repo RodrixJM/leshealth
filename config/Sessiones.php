@@ -17,6 +17,22 @@ class Sessiones
             
     }
 
+    public static function esAdministrador()
+    {
+        if(Sessiones::getClave('autenticado'))
+        {
+            if( Sessiones::getNivel(Sessiones::getClave('rol')) === Sessiones::getNivel('administrador')){
+                return true;
+            } 
+           else
+            return false;
+        }
+        else
+        return false;
+
+            
+    }
+
     public static function getVista($rol)
     {
         if(Sessiones::getClave('autenticado'))

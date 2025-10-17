@@ -29,7 +29,7 @@
     </div>
 
     <div class="col-12 col-md-6">
-        <label for="usuario" class="form-label">Usuario (login)</label>
+        <label for="nombreU" class="form-label">Usuario (login)</label>
         <input type="text" name="nombreU" id="nombreU" class="form-control" required disabled value=<?php echo Sessiones::getClave('usuario'); ?>>
     </div>
 
@@ -40,7 +40,7 @@
 
     <div class="col-12 col-md-6">
         <label for="imagen" class="form-label">Imagen (opcional)</label>
-        <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*">
+        <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*" value="">
     </div>
 
     <!-- Campo oculto para indicar el rol -->

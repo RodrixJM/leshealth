@@ -2,11 +2,13 @@
 class protagonistaController extends Controller
 {
     private $_protagonista;
+    private $_correo;
 
     function __construct()
     {
         parent::__construct();
         $this->_protagonista = $this->loadModel("protagonista");
+        $this->_correo = $this->loadModel("correo");
     }
  
     public function verProtagonista()
@@ -69,7 +71,7 @@ class protagonistaController extends Controller
             $datos .= '<option value="' . $fila[$i]['id_departamento'] . '">' . $fila[$i]['nombre_departamento'] . '</option>';
         }
 
-        $this->_view->departamentos = $datos;
+        $this->_view->departamentos = $datos; 
         
 
         $this->_view->renderizar('protagonista');
@@ -110,6 +112,10 @@ class protagonistaController extends Controller
            $image = upload_image();
         
            $this->_protagonista->insertarProtagonista($this->getTexto('pNombre'),$this->getTexto('sNombre'),$this->getTexto('pApellido'),$this->getTexto('sApellido'),$this->getTexto('cedula'),$this->getTexto('municipioOrigen'),$this->getTexto('fechaNacio'),$this->getTexto('edad'),$this->getTexto('sexo'),$this->getTexto('nacionalidad'),$this->getTexto('ocupacion'),$this->getTexto('estadoCivil'),$this->getTexto('direccion'),$this->getTexto('numero'),$this->getTexto('correo'),$this->getTexto('nombreU'),$this->getTexto('clave'),$image);
+              $this->_correo->enviarCorreoProtagonista(
+                $this->getTexto('pNombre').' '.$this->getTexto('sNombre').' '.$this->getTexto('pApellido').' '.$this->getTexto('sApellido'),
+                $this->getTexto('correo')
+              );
            echo $this->verProtagonista();
 
 

@@ -2,11 +2,13 @@
 class doctorController extends Controller
 {
     private $_doctor;
+    private $_correo;
 
     function __construct()
     {
         parent::__construct();
         $this->_doctor = $this->loadModel("doctor");
+        $this->_correo = $this->loadModel("correo");
     }
  
     public function verDoctor()
@@ -86,10 +88,18 @@ class doctorController extends Controller
            $this->getTexto('correo'),
            $this->getTexto('nombreU'),
            $this->getTexto('clave'),$image);
+           $this->_correo->enviarCorreoDoctor(
+                $this->getTexto('nombre'),
+                $this->getTexto('correo')
+            );
            echo $this->verDoctor();
            }
            else{
             $this->_doctor->insertarServicioSinImagen($this->getTexto('tipoServicio'),$this->getTexto('descripcionServicio'),$this->getTexto('precioServicio'));
+            $this->_correo->enviarCorreoDoctor(
+                $this->getTexto('nombre'),
+                $this->getTexto('correo')
+            );
             echo $this->verDoctor();
            }
         
@@ -97,6 +107,10 @@ class doctorController extends Controller
           
    
         
+    }
+
+    public function chequear(){
+        return Sessiones::esAdministrador();
     }
 
      public function borrar()

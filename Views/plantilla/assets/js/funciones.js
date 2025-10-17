@@ -3,9 +3,152 @@ $(function () {
     let baseURL = "http://localhost/leshealth/Views/plantilla/";
 
     Fancybox.bind("[data-fancybox]", {
-        // Your custom options
     });
 
+    const notifications = [];
+    const notificationList = document.getElementById("notificationList");
+    const STORAGE_KEY = 'les_notifications_v1'; 
+    const MAX_STORED = 200;
+
+    function saveNotifications() {
+        try {
+            const toStore = notifications.slice(0, MAX_STORED);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(toStore));
+        } catch (e) {
+            console.warn('Could not save notifications to localStorage', e);
+        }
+    }
+
+    function loadNotifications() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return;
+            const arr = JSON.parse(raw);
+            if (!Array.isArray(arr)) return;
+
+            notifications.length = 0;
+            notificationList && (notificationList.innerHTML = '');
+
+            arr.forEach(function (note) {
+                const n = {
+                    title: note.title || '',
+                    message: note.message || '',
+                    timestamp: note.timestamp || new Date().toISOString()
+                };
+                notifications.push(n);
+            });
+
+            if (notificationList) {
+                notifications.forEach(function (note) {
+                    const li = createNotificationListItem(note);
+                    notificationList.appendChild(li);
+                });
+            }
+
+            const counter = document.getElementById("notificationNumber");
+            if (counter) counter.innerText = notifications.length.toString();
+        } catch (e) {
+            console.warn('Could not load cached notifications', e);
+        }
+    }
+
+    function escapeHtml(unsafe) {
+        return String(unsafe)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    function createNotificationListItem(note) {
+        const titleText = note.title || '';
+        const messageText = note.message || '';
+        const timestamp = note.timestamp || new Date().toISOString();
+
+        const li = document.createElement('li');
+        li.className = 'notification-item';
+        li.innerHTML = `
+            <i class="bi bi-x-circle text-danger"></i>
+            <div>
+                ${titleText ? '<h4>' + escapeHtml(titleText) + '</h4>' : ''}
+                <p>${escapeHtml(messageText)}</p>
+                <small>${new Date(timestamp).toLocaleString()}</small>
+            </div>
+        `;
+        return li;
+    }
+
+    const ws = new WebSocket('ws://localhost:8080');
+    loadNotifications();
+    ws.onopen = function() {
+        console.log('WebSocket connection established');
+        ws.send('Hello Server!');
+    }
+
+    ws.onmessage = function(event) {
+        let payload;
+        try {
+            payload = JSON.parse(event.data);
+        } catch (e) {
+            payload = { message: String(event.data) };
+        }
+
+        const messageText = payload.message || payload.msg || payload.data || '';
+        const titleText = payload.title || payload.type || '';
+        const timestamp = payload.timestamp || new Date().toISOString();
+
+    const note = { title: titleText, message: messageText, timestamp };
+    notifications.unshift(note);
+    saveNotifications();
+
+        document.getElementById("notificationNumber").innerText = notifications.length.toString();
+
+        const list = document.getElementById("notificationList");
+        const li = createNotificationListItem(note);
+        if (list.firstChild) {
+            list.insertBefore(li, list.firstChild);
+        } else {
+            list.appendChild(li);
+        }
+    }
+
+
+    const sendNotification = (title, message) => {
+        let payload;
+        if (typeof message === 'undefined') {
+            payload = {
+                message: String(title),
+                timestamp: new Date().toISOString()
+            };
+        } else {
+            payload = {
+                title: String(title),
+                message: String(message),
+                timestamp: new Date().toISOString()
+            };
+        }
+    notifications.unshift(payload);
+    saveNotifications();
+        document.getElementById("notificationNumber").innerText = notifications.length.toString();
+        const li = createNotificationListItem(payload);
+        if (notificationList && notificationList.firstChild) {
+            notificationList.insertBefore(li, notificationList.firstChild);
+        } else if (notificationList) {
+            notificationList.appendChild(li);
+        }
+
+
+        try {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify(payload));
+            } else {
+                console.warn('WebSocket not open, cannot send notification');
+            }
+        } catch (err) {
+            console.error('Failed to send notification via WebSocket:', err);
+        }
+    }
 
     const apiKey = "85b72a23feb9ccd5bd3520a9efd9a39e";
     let lat = 12.1364;
@@ -250,17 +393,11 @@ $(function () {
             contentType: false,
             processData: false,
             success: function (respuesta) {
-                $('#modalAgregarDoctor').modal('hide');
-                $('#formAgregarDoctor')[0].reset();
-                $("#table").DataTable().destroy();
-                $("#table tbody").html(respuesta);
-                inicializarDataTable();
-                Swal.fire({
-                    title: "Se agrego registro de Doctor!",
-                    text: "con exito!",
-                    icon: "success"
-                });
-
+                 const debeRedireccionar = $.ajax({
+            url: 'doctor/chequear'});
+            if(debeRedireccionar){
+                window.location.href = 'index';
+            }
             }
 
 
@@ -926,19 +1063,26 @@ $(function () {
         // ==========================
         // 4. Borrar Ejercicio
         // ==========================
-        $("#tableEjercicio").on("click", ".btnBorrarEjercicio", function () {
+        $("#table").on("click", ".btnBorrarEjercicio", function () {
             let id = $(this).attr('data-borrarEjercicio');
 
-            if (confirm("¿Está seguro de eliminar este registro de ejercicio?")) {
                 $.ajax({
-                    url: 'ejercicio/borrarEjercicio',
+                    url: 'ejercicio/borrar',
                     type: 'POST',
                     data: { idEjercicio: id },
                     success: function (respuesta) {
+                        sendNotification("Ejercicio eliminado", "Un ejercicio ha sido eliminado del sistema.");
                         $("#tableEjercicio tbody").html(respuesta);
+                        $("#table").DataTable().destroy();
+                        $("#table tbody").html(respuesta);
+                        inicializarDataTable();
+                        Swal.fire(
+                            'Borrado',
+                            'El registro a sido eliminado',
+                            'success'
+                        )
                     }
                 });
-            }
         });
 
     });

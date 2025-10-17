@@ -26,13 +26,24 @@
     </div>
 
     <div class="col-12 col-md-6">
-        <label for="municipioOrigen" class="form-label">Municipio</label>
-        <select name="municipioOrigen" id="municipioOrigen" class="form-select">
-            <option value="">Seleccione...</option>
-            <!-- Opciones pobladas dinámicamente -->
+        <label for="departamentoOrigen" class="form-label">Departamento</label>
+        <select name="departamentoOrigen" id="departamentoOrigen" class="form-select">
+            <option value="">Seleccione Departamento</option>
+            <?php
+            // Suponiendo que $departamentos es un array con los departamentos disponibles
+            foreach ($departamentos as $departamento) {
+                echo "<option value=\"{$departamento['id']}\">{$departamento['nombre']}</option>";
+            }
+            ?>
         </select>
     </div>
 
+    <div class="col-12 col-md-6">
+        <label for="municipioOrigen" class="form-label">Municipio</label>
+        <select name="municipioOrigen" id="municipioOrigen" class="form-select" disabled>
+            <option value="">Seleccione Municipio</option>
+        </select>
+    </div>
     <div class="col-12 col-md-6">
         <label for="fechaNacio" class="form-label">Fecha de nacimiento</label>
         <input type="date" name="fechaNacio" id="fecha_nacimiento" class="form-control">
@@ -103,3 +114,9 @@
     </div>
 
 </form>
+
+<?php
+
+
+
+?>

@@ -26,13 +26,6 @@ class doctorModel extends Model
                     'imagen' => $imagen
                     
                 ));
-
-                $this->_db->prepare('insert into usuario(nombre_usuario,clave,rol) values(:nombreU,:clave,:rol)')->execute(array(
-                    'nombreU' => $nombreU,
-                    'clave' => $hash,
-                    'rol' => $rol
-                ));
-
     }
 
     

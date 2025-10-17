@@ -85,7 +85,7 @@ class ejercicioController extends Controller
 
     public function borrar()
     {
-        $id = $this->getTexto('id');
+        $id = $this->getTexto('idEjercicio');
         Sessiones::acceso('administrador');
         $this->_ejercicio->borrarEjercicio($id);
         echo $this->verEjercicios();
