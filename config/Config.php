@@ -5,7 +5,7 @@ define('BASE_URL','http://localhost/leshealth/');
 define('DEFAULT_CONTROLLER','index');
 define('PLANTILLA',BASE_URL.'Views/plantilla/');
 
-define('DB_HOST','localhost');
+define('DB_HOST','localhost:3308');
 define('DB_USER','root');
 define('DB_PASS','');
 define('DB_NAME','leshealth');

@@ -1,0 +1,82 @@
+<main id="main" class="main">
+        <?php
+            // Página de Facebook objetivo (canónica, sin parámetros)
+            $fbPageUsername = 'caoslalys';
+            $fbPageUrl = 'https://www.facebook.com/' . $fbPageUsername;
+            $fbPageId = null; // opcional
+        ?>
+
+    <div class="pagetitle">
+        <h1 style="font-family:'Poppins'">Ayuda y Contacto</h1>
+    </div>
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="card shadow-sm border-0">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-md-5 " style="background: color: #fff; padding: 32px;">
+                            <h2 class="mb-3">¿Necesitas ayuda?</h2>
+                            <p class="lead">Envíanos un mensaje directo por Facebook Messenger y nuestro equipo te responderá lo antes posible. Puedes usar el chat integrado de la derecha o abrir Messenger directamente.</p>
+                            <ul class="list-unstyled mt-3">
+                                <li><strong>Horario de atención:</strong> Lun - Vie 8:00 - 17:00</li>
+                                <li><strong>Tiempo estimado de respuesta:</strong> 24-48 horas</li>
+                            </ul>
+                            <a href="https://m.me/<?php echo htmlspecialchars($fbPageUsername); ?>" target="_blank" class="btn btn-light mt-3">Abrir Messenger</a>
+                        </div>
+                        <div class="col-md-7 p-4">
+                            <h5 class="mb-3">Enviar mensaje directo</h5>
+                            <p class="text-muted small">Usa el widget de Facebook para enviar un mensaje privado a nuestra página.</p>
+
+                            <!-- Facebook Page Plugin (messages tab) -->
+                            <div id="fb-root"></div>
+                            <div class="fb-page"
+                                data-href="<?php echo htmlspecialchars($fbPageUrl); ?>"
+                                     data-tabs="messages"
+                                     data-width="380"
+                                     data-height="400"
+                                     data-small-header="false"
+                                     data-adapt-container-width="true"
+                                     data-hide-cover="false"
+                                     data-show-facepile="true">
+                            </div>
+
+                            <div class="mt-3 small text-muted">
+                                                <p>Si el plugin no carga, <a href="https://m.me/<?php echo htmlspecialchars($fbPageUsername); ?>" target="_blank">haz clic aquí para abrir Messenger</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Small, tasteful overrides to match the app's modern palette */
+        .card.shadow-sm { border-radius: 12px; overflow: hidden; }
+        .notification-badge { background:#dc3545;color:#fff;padding:4px 8px;border-radius:999px;font-size:12px }
+        .lead { font-size:1rem }
+        @media (max-width:767px) {
+            .fb-page { width:100% !important; }
+        }
+    </style>
+
+    <!-- Facebook SDK: reemplaza appId si lo tienes configurado en Facebook Developers -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml            : true,
+                version          : 'v17.0'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v17.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+</main>
