@@ -27,15 +27,15 @@
         <?php foreach($this->libros as $libro): ?>
         <div class="col-md-4">
             <div class="card h-100">
-                <img src="<?= $libro['portada'] ?>" class="card-img-top" alt="<?= $libro['titulo'] ?>">
+                <img src="<?= PLANTILLA.'assets/img/'. $libro['portada'] ?>" class="card-img-top" alt="<?= $libro['titulo'] ?>">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title"><?= $libro['titulo'] ?></h5>
                     <p class="card-text"><?= $libro['descripcion'] ?></p>
                     <p><small class="text-muted"><?= $libro['autor'] ?></small></p>
-                    <span class="badge bg-info mb-2"><?= $libro['categoria'] ?></span>
+                   
                     <div class="mt-auto d-flex justify-content-between">
-                        <button class="btn btn-secondary btn-sm" onclick="previsualizarLibro('<?= $libro['archivo'] ?>')">Previsualizar</button>
-                        <a href="<?= $libro['archivo'] ?>" class="btn btn-primary btn-sm" download>Descargar</a>
+                        <button class="btn btn-secondary btn-sm" onclick="previsualizarLibro('<?=PLANTILLA.'assets/img/'. $libro['archivo'] ?>')">Previsualizar</button>
+                        <a href="<?= PLANTILLA.'assets/img/'.$libro['archivo'] ?>" class="btn btn-primary btn-sm" download>Descargar</a>
                     </div>
                 </div>
             </div>

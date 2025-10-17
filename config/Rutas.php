@@ -12,8 +12,8 @@ class Rutas
             
              $url=explode('/',$url);  // ARREGLO A PARTIR DE /
              
-            $this->_controlador=strtolower(array_shift($url));  //  QUITA UN ELEMENTO DE ARREGLO
-            $this->_metodo=strtolower(array_shift($url));   //  QUITA UN ELEMENTO DE ARREGLO
+           $this->_controlador = strtolower((string) array_shift($url) ?: '');
+$this->_metodo = strtolower((string) array_shift($url) ?: '');
             $this->_argumentos=$url;  // EL RESTO SON ARGUMENTOS
         }
 
