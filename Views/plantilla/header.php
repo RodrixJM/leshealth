@@ -124,7 +124,7 @@
               if (Sessiones::getClave('usuario'))
                 echo Sessiones::getClave('usuario');
               else
-                echo 'No User';
+                echo 'Sin Sesión';
               ?>
             </span>
           </a><!-- Muestra el nombre de el usario que acaba de iniciar session -->
@@ -137,7 +137,7 @@
                 if (Sessiones::getClave('usuario'))
                   echo Sessiones::getClave('usuario');
                 else
-                  echo 'No User';
+                  echo 'Sin Sesión';
                 ?>
               </h6>
               <span><?php

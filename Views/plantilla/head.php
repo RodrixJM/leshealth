@@ -74,9 +74,19 @@
       <!-- charts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+
       <!-- JQUERY -->
   <script src="<?=PLANTILLA?>assets/js/jquery.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+    <!-- quiz -->
+  <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <!-- ... -->
 
 </head>

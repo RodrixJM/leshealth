@@ -51,10 +51,20 @@
       </a>
     </li><!-- End Dashboard Nav -->
 
+
+
      <li class="nav-item">
       <a class="nav-link collapsed" href="<?= BASE_URL ?>signos">
         <i class="fa-solid fa-file-circle-plus"></i>
         <span>Registrar Signos</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+     <li class="nav-item">
+      <a class="nav-link collapsed" href="<?= BASE_URL ?>deteccion">
+      <i class="fa-solid fa-magnifying-glass"></i>
+        <span>Detección</span>
+       
       </a>
     </li><!-- End Dashboard Nav -->
 
@@ -251,5 +261,11 @@
     
 
   </ul>
+<div class="row">
+    <div class="col">
+  <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fcaoslalys&tabs=timeline&width=300&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+
+    </div>
+</div>
 
 </aside><!-- End Sidebar-->

@@ -59,31 +59,291 @@
     </section>
 
 
+ 
 
-
+          
     <!-- Modal  para agregar Doctor-->
     <div class="modal fade" id="modalAgregarConsulta" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#48276f">
+                    <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
+                        class="modal-title fs-5" id="exampleModalLabel"> Agregar Nuevo <i class="fa-solid fa-receipt"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                       
+
+                            <section class="section profile">
+                                <div class="row">
+                                    <div class="col-xl-4">
+
+                                        <div class="card">
+                                            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                                                <img id="imagenPacienteCarga" src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                                                <h2 id="nombrePacienteCarga"></h2>
+                                                <h3 id="apellidosPacienteCarga"></h3>
+                                                <div class="social-links mt-2">
+                                                    <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                                    <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-xl-8">
+
+                                        <div class="card">
+                                            <div class="card-body pt-3">
+                                                <!-- Bordered Tabs -->
+                                                <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#perfil" aria-selected="true" role="tab">Datos perfil</button>
+                                                    </li>
+
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#signos" aria-selected="false" tabindex="-1" role="tab">Historial Signos</button>
+                                                    </li>
+
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#dieta" aria-selected="false" tabindex="-1" role="tab">Dieta</button>
+                                                    </li>
+
+
+                                                </ul>
+                                                <div class="tab-content pt-2">
+
+                                                    <div class="tab-pane fade show active perfil" id="perfil" role="tabpanel">
+                                                        <h5 class="card-title">Diagnostico</h5>
+                                                        <p id="diagnostico" class="small fst-italic"></p>
+
+                                                        <h5 class="card-title">Detalles Perfil</h5>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-4 label ">Nombre Completo</div>
+                                                            <div class="col-lg-9 col-md-8" id="nombreCompleto"></div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-4 label">Fecha Nacimiento</div>
+                                                            <div class="col-lg-9 col-md-8" id="fechaNacio"></div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-4 label" >Edad</div>
+                                                            <div class="col-lg-9 col-md-8" id="edad"></div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-4 label">Sexo</div>
+                                                            <div class="col-lg-9 col-md-8" id="sexo"></div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-4 label">Domicilio</div>
+                                                            <div class="col-lg-9 col-md-8" id="domicilio"></div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-4 label">Telefono</div>
+                                                            <div class="col-lg-9 col-md-8" id="telefono"></div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-4 label">Email</div>
+                                                            <div class="col-lg-9 col-md-8" id="correo"></div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="tab-pane fade signos pt-3" id="signos" role="tabpanel">
+
+                                                        <!-- Seguimientode signos -->
+                                                         <div class="row mt-2">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">SEGUIMIENTO DE SIGNOS</h1>
+          </center>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="graficoGlucosa"></canvas>
+            </div>
+            <div class="col-md-12">
+              <canvas id="graficoPresion"></canvas>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+                                                    </div>
+
+             <!-- Area Medicacion -->                                          <div class="tab-pane fade pt-3" id="dieta" role="tabpanel">
+
+                                                        <!-- Settings Form -->
+                                                       <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <center>
+            <h1 class="card-title">DIETA ORIENTADA</h1>
+          </center>
+
+            
+
+
+        </div>
+
+
+
+
+        <div class="card-body mt-5">
+
+
+          <div id="contenedor-dieta-paciente" class="row"> </div>
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>
+
+                                                    </div>
+
+                                                   
+
+                                                </div><!-- End Bordered Tabs -->
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </section>
+
+
+                            <div class="container">
+                <div class="row justify-content-center">
+                    
+                <!-- centra el formulario -->
+                    <div class="col-lg-10">
+
+
+                    <div class="card">
+<div class="card-body">
+
+
+                             <form class="row" method="post" id="formAgregarDoctor" enctype="multipart/form-data">
+
+           <center>                  
+<h1 style="color: #48276f; font-family: 'Poppins', sans-serif; font-weight: 500;"
+                        class="modal-title mt-3 fs-5" id="exampleModalLabel"> Registrar Consulta Del Paciente <i class="fa-solid fa-hospital-user"></i></h1>
+                        </center>
+
+            <div class="col-12">
+                  <label class="form-label">Síntomas actuales</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="sintomas[]" value="Fatiga">
+                    <label class="form-check-label">Fatiga extrema</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="sintomas[]" value="Fiebre">
+                    <label class="form-check-label">Fiebre leve</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="sintomas[]" value="Dolor Articular">
+                    <label class="form-check-label">Dolor en articulaciones</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="sintomas[]" value="Erupciones">
+                    <label class="form-check-label">Erupciones o manchas rojas</label>
+                  </div>
+                 
+                </div>
+
+                <div class="col-12 mt-3">
+                  <label class="form-label">Observaciones adicionales</label>
+                  <textarea class="form-control" name="observaciones" rows="3"></textarea>
+                </div>
+                            
+
+
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>
+                        Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar
+                        Registro</button>
+                </div>
+
+                </form>
+ </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal  para Editar Doctor-->
+
+    <div class="modal fade" id="modalEditarDoctor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" style="background-color:#48276f">
                     <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
-                        class="modal-title fs-5" id="exampleModalLabel"> Agregar Nuevo   <i class="fa-solid fa-receipt"></i></h1>
+                        class="modal-title fs-5" id="exampleModalLabel"> Editar Datos Del Doctor <i
+                            class="fa-solid fa-stethoscope"></i></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <form class="row" method="post" id="formAgregarDoctor" enctype="multipart/form-data">
+                        <form class="row" method="post" id="formEditarDoctor" enctype="multipart/form-data" autocomplete="off">
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">ID Doctor</label>
+                                <input type="text" class="form-control" id="idUp" name="idUp">
+                            </div>
+
 
                             <div class="mb-3 col-lg-12">
                                 <label for="" class="form-label">Nombre Completo</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required
+                                <input type="text" class="form-control" id="nombreUp" name="nombreUp"
                                     autocomplete="off">
                             </div>
 
                             <div class="mb-3 col-lg-6">
                                 <label for="" class="form-label">Sexo</label>
-                                <select class="form-select" name="sexo" id="sexo">
+                                <select class="form-select" name="sexoUp" id="sexoUp">
                                     <option value="Limpieza">Seleccione una Opción</option>
                                     <option value="Masculino">Masculino</option>
                                     <option value="Femenino">Femenino</option>
@@ -93,12 +353,12 @@
 
                             <div class="mb-3 col-lg-6">
                                 <label for="" class="form-label">Especialidad</label>
-                                <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+                                <input type="text" class="form-control" id="especialidadUp" name="especialidadUp">
                             </div>
 
                             <div class="mb-3 col-lg-6">
                                 <label for="" class="form-label">Numero de telefono</label>
-                                <input type="tel" class="form-control" id="numero" name="numero" required
+                                <input type="tel" class="form-control" id="numeroUp" name="numeroUp"
                                     autocomplete="off">
                             </div>
 
@@ -106,21 +366,21 @@
 
                             <div class="mb-3 col-lg-6">
                                 <label for="" class="form-label">Correo Electronico</label>
-                                <input type="email" class="form-control" id="correo" name="correo" required
+                                <input type="tel" class="form-control" id="correoUp" name="correoUp"
                                     autocomplete="off">
                             </div>
 
-                             <div class="mb-3 col-lg-12">
+                            <div class="mb-3 col-lg-12">
                                 <label for="" class="form-label">Nombre Usuario</label>
-                                <input type="text" class="form-control" id="nombreU" name="nombreU" required  autocomplete="off">
+                                <input type="text" class="form-control" id="nombreUsUp" name="nombreUsUp" autocomplete="off">
                                 <span id="result"></span>
                             </div>
 
                             <div class="mb-3 col-lg-6">
                                 <label for="" class="form-label">Contraseña Usuario</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="clave" name="clave" required>
-                                    <span id="ocultar" class="input-group-text"><i onclick="ocultarPass('clave',this);"
+                                    <input type="password" class="form-control" id="claveUp" name="claveUsUp" autocomplete="new-password">
+                                    <span id="ocultar" class="input-group-text"><i onclick="ocultarPass('claveUp',this);"
                                             class="fa-solid fa-eye"></i></span>
                                 </div>
                             </div>
@@ -131,21 +391,109 @@
 
 
 
-                                    <input type="password" class="form-control" id="repetir" name="repetir" required>
+                                    <input type="password" class="form-control" id="repetirUp" name="repetirUp" autocomplete="off">
 
-                                    <span class="input-group-text"><i onclick="ocultarPass('repetir',this);"
+                                    <span class="input-group-text"><i onclick="ocultarPass('repetirUp',this);"
                                             class="fa-solid fa-eye"></i></span>
                                 </div>
 
 
                             </div>
 
-                           
+
 
 
 
                             <div class="mb-3 col-lg-12">
                                 <label for="" class="form-label">Foto del Doctor</label>
+                                <input type="file" class="form-control" id="imagenUp" name="imagenUp"
+                                    accept="image/jpg, image/png, image/jpeg">
+                            </div>
+
+                            <div id="mb-3 col-lg-12" class="mt-3">
+                                <label for="" class="form-label">Imagen Actual del Doctor</label>
+                                <img id="previewImageUp" src="#" alt="Previsualización"
+                                    style="max-width: 150px; display:block" />
+                            </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>
+                        Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar
+                        Registro</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- Modal  para agregar Doctor-->
+    <div class="modal fade" id="modalAgregarDieta" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#48276f">
+                    <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
+                        class="modal-title fs-5" id="exampleModalLabel"> Indicar Dieta <i
+                            class="fa-solid fa-stethoscope"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form class="row" method="post" id="formAgregarDietaPaciente" enctype="multipart/form-data">
+
+                        <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">ID Paciente</label>
+                                <input type="text" class="form-control" id="idPaciente" name="idPaciente" required
+                                    >
+                            </div>
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">Nombre Platillo</label>
+                                <input type="text" class="form-control" id="nombrePlatillo" name="nombrePlatillo" required
+                                    autocomplete="off">
+                            </div>
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">Tipo</label>
+                                <input type="text" class="form-control" id="tipoPlatillo" name="tipoPlatillo" required
+                                    autocomplete="off">
+                            </div>
+
+
+                            <div class="mb-3 col-lg-6">
+                                <label for="" class="form-label">descripcion</label>
+                                <input type="text" class="form-control" id="descriPlatillo" name="descriPlatillo" required>
+                            </div>
+
+                           
+
+
+
+                           
+
+                           
+
+                           
+
+                           
+
+                           
+
+
+
+                            <div class="mb-3 col-lg-12">
+                                <label for="" class="form-label">Foto del Platillo</label>
                                 <input type="file" class="form-control" id="imagen" name="imagen" required
                                     accept="image/jpg, image/png, image/jpeg">
                             </div>
@@ -174,131 +522,8 @@
         </div>
     </div>
 
-       <!-- Modal  para Editar Doctor-->
-
-        <div class="modal fade" id="modalEditarDoctor" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color:#48276f">
-                    <h1 style="color: #ffffffff; font-family: 'Poppins', sans-serif; font-weight: 500;"
-                        class="modal-title fs-5" id="exampleModalLabel"> Editar Datos Del Doctor <i
-                            class="fa-solid fa-stethoscope"></i></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <form class="row" method="post" id="formEditarDoctor" enctype="multipart/form-data" autocomplete="off">
-
-                            <div class="mb-3 col-lg-12">
-                                <label for="" class="form-label">ID Doctor</label>
-                                <input type="text" class="form-control" id="idUp" name="idUp" >
-                            </div>
-
-
-                            <div class="mb-3 col-lg-12">
-                                <label for="" class="form-label">Nombre Completo</label>
-                                <input type="text" class="form-control" id="nombreUp" name="nombreUp" 
-                                    autocomplete="off">
-                            </div>
-
-                            <div class="mb-3 col-lg-6">
-                                <label for="" class="form-label">Sexo</label>
-                                <select class="form-select" name="sexoUp" id="sexoUp">
-                                    <option value="Limpieza">Seleccione una Opción</option>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="Femenino">Femenino</option>
-                                </select>
-                            </div>
-
-
-                            <div class="mb-3 col-lg-6">
-                                <label for="" class="form-label">Especialidad</label>
-                                <input type="text" class="form-control" id="especialidadUp" name="especialidadUp" >
-                            </div>
-
-                            <div class="mb-3 col-lg-6">
-                                <label for="" class="form-label">Numero de telefono</label>
-                                <input type="tel" class="form-control" id="numeroUp" name="numeroUp" 
-                                    autocomplete="off">
-                            </div>
-
-
-
-                            <div class="mb-3 col-lg-6">
-                                <label for="" class="form-label">Correo Electronico</label>
-                                <input type="tel" class="form-control" id="correoUp" name="correoUp" 
-                                    autocomplete="off">
-                            </div>
-
-                             <div class="mb-3 col-lg-12">
-                                <label for="" class="form-label">Nombre Usuario</label>
-                                <input type="text" class="form-control" id="nombreUsUp" name="nombreUsUp"  autocomplete="off">
-                                <span id="result"></span>
-                            </div>
-
-                            <div class="mb-3 col-lg-6">
-                                <label for="" class="form-label">Contraseña Usuario</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" id="claveUp" name="claveUsUp" autocomplete="new-password">
-                                    <span id="ocultar" class="input-group-text"><i onclick="ocultarPass('claveUp',this);"
-                                            class="fa-solid fa-eye"></i></span>
-                                </div>
-                            </div>
-
-                            <div class="mb-3 col-lg-6">
-                                <label for="" class="form-label">Repita Contraseña </label>
-                                <div class="input-group">
-
-
-
-                                    <input type="password" class="form-control" id="repetirUp" name="repetirUp" autocomplete="off">
-
-                                    <span class="input-group-text"><i onclick="ocultarPass('repetirUp',this);"
-                                            class="fa-solid fa-eye"></i></span>
-                                </div>
-
-
-                            </div>
-
-                           
-
-
-
-                            <div class="mb-3 col-lg-12">
-                                <label for="" class="form-label">Foto del Doctor</label>
-                                <input type="file" class="form-control" id="imagenUp" name="imagenUp" 
-                                    accept="image/jpg, image/png, image/jpeg">
-                            </div>
-
-                            <div id="mb-3 col-lg-12" class="mt-3">
-                                <label for="" class="form-label">Imagen Actual del Doctor</label>
-                                <img id="previewImageUp" src="#" alt="Previsualización"
-                                    style="max-width: 150px; display:block" />
-                            </div>
-
-                            
-
-
-                    </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>
-                        Cancelar</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar
-                        Registro</button>
-                </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-
-
 
 
 </main>
+
+

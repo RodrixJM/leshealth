@@ -1,0 +1,135 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1 style="font-family:'Poppins'">Detección de Lupus</h1>
+  </div>
+
+  <div id="surveyContainer"></div>
+
+
+  <script>
+
+     Survey.surveyLocalization.locales["es"] = {
+      pagePrevText: "Anterior",
+      pageNextText: "Siguiente",
+      completeText: "Finalizar",
+      requiredText: "¡Respuesta requerida!"
+  };
+  Survey.surveyLocalization.currentLocale = "es";
+    // Cuestionario completo de detección
+      const surveyJson = {
+            title: "Detección Temprana de Lupus",
+            showProgressBar: "bottom",
+            completedHtml: "<h3>¡Gracias por completar la detección!</h3><p>Se enviaron tus respuestas correctamente.</p>",
+            pages: [
+                // SECCIÓN 1: Detección general
+                {
+                    name: "deteccion_general",
+                    title: "SECCIÓN 1: Detección general",
+                    elements: [
+                        { type: "radiogroup", name: "fatiga", title: "¿Sueles sentir fatiga extrema, incluso después de dormir bien?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "fiebre", title: "¿Tienes fiebre leve sin causa aparente?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "articulaciones", title: "¿Has notado inflamación o dolor en las articulaciones (manos, muñecas, rodillas)?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "erupciones", title: "¿Sufres de erupciones o manchas rojas en la piel, especialmente en la cara (en forma de mariposa)?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "sensibilidadSol", title: "¿Tu piel reacciona con sensibilidad al sol?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "perdidaCabello", title: "¿Tienes pérdida de cabello repentina o en mechones?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "ulceras", title: "¿Has tenido úlceras en la boca o nariz que tardan en sanar?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "hinchazon", title: "¿Has notado hinchazón en los pies o alrededor de los ojos?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "proteinasOrina", title: "¿Te han dicho alguna vez que tienes proteínas en la orina o problemas renales?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "dolorPecho", title: "¿Experimentas dolor en el pecho al respirar profundamente?", choices: ["Sí","No"] }
+                    ]
+                },
+                // SECCIÓN 2: Diferenciación por tipo de lupus
+                {
+                    name: "tipo_lupus",
+                    title: "SECCIÓN 2: Diferenciación por tipo de lupus",
+                    elements: [
+                        // LES
+                        { type: "radiogroup", name: "les_organos", title: "¿Tienes síntomas en varios órganos (piel, riñones, pulmones, articulaciones)?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "les_analisis", title: "¿Tu médico ha mencionado alteraciones en los análisis de sangre (anticuerpos antinucleares positivos)?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "les_brotes", title: "¿Sufres brotes de fiebre o dolor articular que van y vienen?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "les_anemia", title: "¿Tienes anemia o plaquetas bajas sin otra causa aparente?", choices: ["Sí","No"] },
+
+                        // Lupus Cutáneo
+                        { type: "radiogroup", name: "cutaneo_piel", title: "¿Tus síntomas se limitan a la piel (manchas, erupciones, pérdida de pigmento)?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "cutaneo_sol", title: "¿Aparecen brotes tras la exposición al sol?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "cutaneo_lesiones", title: "¿Tienes lesiones que dejan cicatrices o cambian el color de la piel?", choices: ["Sí","No"] },
+
+                        // Lupus inducido por fármacos
+                        { type: "radiogroup", name: "farmacos_inicio", title: "¿Comenzaron tus síntomas tras iniciar un nuevo medicamento?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "farmacos_mejora", title: "¿Desaparecen o mejoran al suspender ese medicamento?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "farmacos_leve", title: "¿Tus síntomas se limitan a fiebre, dolor muscular o articular leves?", choices: ["Sí","No"] },
+
+                        // Lupus neonatal
+                        { type: "radiogroup", name: "neonatal_bebe", title: "¿Tu bebé nació con erupciones en la piel o problemas cardíacos?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "neonatal_anticuerpos", title: "¿Has tenido anticuerpos anti-Ro o anti-La positivos?", choices: ["Sí","No"] }
+                    ]
+                },
+
+                // SECCIÓN 3: Detección temprana
+                {
+                    name: "deteccion_temprana",
+                    title: "SECCIÓN 3: Detección temprana / síntomas sutiles",
+                    elements: [
+                        { type: "radiogroup", name: "dolorMuscular", title: "¿Sientes dolor muscular o rigidez sin causa aparente?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "cansancioDia", title: "¿Te sientes cansado durante el día aunque hayas dormido bien?", choices: ["Sí","No"] },
+                        { type: "radiogroup", name: "manchasPequenas", title: "¿Notas manchas pequeñas en la piel que no desaparecen?", choices: ["Sí","No"] }
+                    ]
+                }
+            ]
+        };
+
+        const survey = new Survey.Model(surveyJson);
+        if (Survey.StylesManager?.applyTheme) Survey.StylesManager.applyTheme("defaultV2");
+
+        // Evento al completar el cuestionario
+        survey.onComplete.add(function (result) {
+            const respuestas = result.data;
+            let totalSi = Object.values(respuestas).filter(v => v === "Sí").length;
+
+            let diagnostico = "";
+            if (totalSi < 4) diagnostico = "Sin indicios de lupus";
+            else if (totalSi >= 4 && totalSi < 10) diagnostico = "Posible lupus leve o cutáneo";
+            else if (totalSi >= 10 && totalSi < 15) diagnostico = "Posible lupus sistémico (LES)";
+            else if (respuestas["farmacos_inicio"] === "Sí") diagnostico = "Posible lupus inducido por fármacos";
+            else if (respuestas["neonatal_bebe"] === "Sí") diagnostico = "Posible lupus neonatal";
+            else diagnostico = "Se detectan varios síntomas. Se recomienda valoración médica inmediata.";
+
+            // Mostrar resultado en alerta
+            Swal.fire({
+                title: "Resultado del Cuestionario",
+                html: `<b>Respuestas afirmativas:</b> ${totalSi}<br><b>Diagnóstico preliminar:</b> ${diagnostico}`,
+                icon: "info"
+            });
+
+            // Enviar resultados al backend
+            const formData = new FormData();
+            formData.append('diagnostico', diagnostico);
+            formData.append('respuestas', JSON.stringify(respuestas));
+
+            $.ajax({
+                url: 'deteccion/guardarDeteccionLupus',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(respuesta) {
+                     Swal.fire({
+                    title: "Se guardo el diagnostico!",
+                    text: "con exito!",
+                    icon: "success"
+                });
+
+                },
+                error: function() {
+                    console.log("Error al guardar los datos");
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            survey.render(document.getElementById("surveyContainer"));
+        });
+
+    
+  </script>
+</main>

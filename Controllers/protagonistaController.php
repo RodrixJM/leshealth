@@ -40,8 +40,8 @@ class protagonistaController extends Controller
 
 
           <td>
-          <button style="background-color: #5A2A7A	; border: #5A2A7A	;" data-Servicio=\'' . $datos . '\' " class="btn btn-info btn-circle btnEditarServicio" data-bs-toggle="modal"
-          data-bs-target="#modalActualizarServicio">
+          <button style="background-color: #5A2A7A	; border: #5A2A7A	;" data-Prota=\'' . $datos . '\' " class="btn btn-info btn-circle btnEditarProtagonista" data-bs-toggle="modal"
+          data-bs-target="#modalActualizarProtagonista">
             <i style="color: white;" class="fa-solid fa-pen"></i>
             </button>
    <button data-borrarServicio=' . $fila[$i]['id_paciente'] . ' class="btn btn-danger btn-circle btBorrarDepartamento">
@@ -59,8 +59,10 @@ class protagonistaController extends Controller
 
     }
 
-    public function index()
+    public function index() 
     {
+
+         Sessiones::acceso('administrador');
         $this->_view->tabla = $this->verProtagonista();
 
         /* Mandando los departamentos a el formulario de agregar municipio */
@@ -92,7 +94,7 @@ class protagonistaController extends Controller
 
 
 
-    /* Funcion que recibe los datos del formulario para agregar departamentos */
+    /* Funcion que recibe los datos del formulario para agregar protagonistas */
     public function agregarProtagonista(){
 
         function upload_image()
@@ -121,16 +123,58 @@ class protagonistaController extends Controller
 
 
            }
-           else{
-            $this->_doctor->insertarServicioSinImagen($this->getTexto('tipoServicio'),$this->getTexto('descripcionServicio'),$this->getTexto('precioServicio'));
-            echo $this->verDoctor();
-           }
+          
         
           
           
    
         
     }
+
+
+    /* Funcion que recibe los datos del formulario para agregar protagonistas */
+    public function actualizarProtagonista(){
+
+        function upload_image()
+        {
+         if(isset($_FILES["imagen"]))
+         {
+          $extension = explode('.', $_FILES['imagen']['name']);
+          $new_name = rand() . '.' . $extension[1];
+          $destination = './Views/plantilla/assets/img/' . $new_name;
+          move_uploaded_file($_FILES['imagen']['tmp_name'], $destination);
+          return $new_name;
+         }
+        }
+        $image = '';
+        if($_FILES["imagen"]["name"] != '')
+          {
+           $image = upload_image();
+        
+           $this->_protagonista->insertarProtagonista($this->getTexto('pNombreUp'),$this->getTexto('sNombreUp'),$this->getTexto('pApellidoUp'),$this->getTexto('sApellidoUp'),$this->getTexto('cedulaUp'),$this->getTexto('municipioOrigenUp'),$this->getTexto('fechaNacioUp'),$this->getTexto('edadUp'),$this->getTexto('sexoUp'),$this->getTexto('nacionalidadUp'),$this->getTexto('ocupacionUp'),$this->getTexto('estadoCivilUp'),$this->getTexto('direccionUp'),$this->getTexto('numeroUp'),$this->getTexto('correo'),$this->getTexto('nombreUsUp'),$this->getTexto('claveUp'),$image);
+           echo $this->verProtagonista();
+
+
+
+           }
+           else {
+        // Actualiza protagonista sin cambiar la imagen
+        $this->_protagonista->insertarProtagonista($this->getTexto('pNombre'),$this->getTexto('sNombre'),$this->getTexto('pApellido'),$this->getTexto('sApellido'),$this->getTexto('cedula'),$this->getTexto('municipioOrigen'),$this->getTexto('fechaNacio'),$this->getTexto('edad'),$this->getTexto('sexo'),$this->getTexto('nacionalidad'),$this->getTexto('ocupacion'),$this->getTexto('estadoCivil'),$this->getTexto('direccion'),$this->getTexto('numero'),$this->getTexto('correo'),$this->getTexto('nombreU'),$this->getTexto('clave'),$image);
+           echo $this->verProtagonista();
+          
+        
+          
+          
+   
+        
+    }
+
+}
+
+    /* Funcion que recibe los datos del formulario para actualizar protagonistas */
+
+
+
 
      
 

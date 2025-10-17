@@ -10,7 +10,33 @@ class pacienteModel extends Model
 
        public function obtenerPacientes($id)
     {
-        return $this->_db->query("select *from confirmacion inner join doctor on doctor_id_doctor=id_doctor inner join protagonista on protagonista_id_protagonista=id_paciente inner join reserva on id_cita_confirmacion=id_cita where id_doctor='$id' and estado='aceptada'")->fetchAll();
+        return $this->_db->query("select *from confirmacion as c inner join doctor as d on c.doctor_id_doctor=d.id_doctor 
+inner join reserva as r on r.doctor_id_doctor=d.id_doctor inner join protagonista as p
+on r.protagonista_id_protagonista=p.id_paciente inner join resultados_deteccion as det
+ on det.protagonista_id_protagonista=p.id_paciente
+where id_doctor='$id' and estado='aceptada'")->fetchAll();
+    }
+
+
+     public function obtenerPaciente($id)
+    {
+        return $this->_db->query("select *from confirmacion as c inner join doctor as d on c.doctor_id_doctor=d.id_doctor 
+inner join reserva as r on r.doctor_id_doctor=d.id_doctor inner join protagonista as p
+on r.protagonista_id_protagonista=p.id_paciente inner join resultados_deteccion as det
+ on det.protagonista_id_protagonista=p.id_paciente
+where id_doctor='$id' and estado='aceptada'")->fetchAll();
+    }
+
+    public function obtenerSignos($id)
+    {
+        return $this->_db->query("select tipo, valor from confirmacion inner join doctor on doctor_id_doctor=id_doctor inner join protagonista as p on protagonista_id_protagonista=p.id_paciente inner join signos as s on s.protagonista_id_protagonista=p.id_paciente where id_doctor ='$id'")->fetchAll();
+    }
+
+     public function obtenerDieta($id)
+    {
+        return $this->_db->query("select nombre_plato,tipo,descripcion,imagen_platillo from confirmacion inner join doctor on doctor_id_doctor=id_doctor 
+inner join protagonista as p on protagonista_id_protagonista=p.id_paciente 
+inner join dieta as d on d.protagonista_id_protagonista=p.id_paciente where id_doctor= '$id'")->fetchAll();
     }
 
        public function obtenerDatosDoctor($nombre)
@@ -19,24 +45,21 @@ class pacienteModel extends Model
     }
 
 
-     public function agendarCita($idD,$idP,$idC)
+     public function insertarDieta($idP,$nombre,$tipo,$desc,$imagen)
     {
 
-        $estado='aceptada';
 
-        $this->_db->prepare('insert into confirmacion(doctor_id_doctor,protagonista_id_protagonista,id_cita_confirmacion)
-    values(:idD,:idP,:idC)')->execute(array(
-                    'idD' => $idD,
-                    'idP' => $idP,
-                    'idC' => $idC
+        $this->_db->prepare('insert into dieta(nombre_plato,tipo,descripcion,protagonista_id_protagonista,imagen_platillo)
+    values(:nom,:tip,:desc,:idp,:img)')->execute(array(
+                    'nom' => $nombre,
+                    'tip' => $tipo,
+                    'desc' => $desc,
+                    'idp' => $idP,
+                    'img' => $imagen
                     
                 ));
 
-                      $this->_db->prepare('UPDATE reserva SET estado = :estado WHERE id_cita = :idC')
-        ->execute([
-            'estado' => $estado,
-            'idC' => $idC
-        ]);
+                
 
 
     }

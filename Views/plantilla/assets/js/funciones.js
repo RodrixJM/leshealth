@@ -702,15 +702,284 @@ $(function () {
 
     });
 
+     
 
     /* Funcion para agregar consulta de paciente */
     $("#table").on("click", ".btnAgregarConsulta", function () {
         $('#modalAgregarConsulta').modal({ backdrop: 'static', keyboard: false });
         var datos = JSON.parse($(this).attr('data-Consulta'));
-        console.log(datos);
 
-        $("#idSigno").val(datos['id_signo']);
+
+     
+       $("#diagnostico").text(datos['resultado']);
+
+       console.log(datos);
+
+        $("#nombrePacienteCarga").text(datos['primer_nombre']+" "+datos['segundo_nombre']);
+       $("#apellidosPacienteCarga").text(datos['primer_apellido']+" "+datos['segundo_apellido']);
+         $("#imagenPacienteCarga").attr('src', baseURL + 'assets/img/' + datos['imagen']);
+         $("#nombreCompleto").text(datos['primer_nombre']+" "+datos['segundo_nombre']+" "+datos['primer_apellido']+" "+datos['segundo_apellido']);
+            $("#fechaNacio").text(datos['fecha_nacimiento']);
+            $("#edad").text(datos['edad']+" años");
+            $("#sexo").text(datos['sexo']);
+            $("#domicilio").text(datos['direccion']);
+            $("#telefono").text(datos['telefono']);
+        $("#idPacienteConsulta").val(datos['id_protagonista']);
+        $("#correo").text(datos['correo']);
+
+
+        /* cargar datos en graficos */
+        
+ var datos = JSON.parse($(this).attr('data-Signos'));
+  console.log("Datos recibidos:", datos);
+
+  // Si 'datos' no es un arreglo, lo convertimos en uno
+  if (!Array.isArray(datos)) {
+    datos = [datos];
+  }
+
+  // Filtrar por tipo
+  var glucosa = datos.filter(s => s.tipo === "glucosa");
+  var presion = datos.filter(s => s.tipo === "presion");
+
+  // Mapear datos para los gráficos
+var fechasGlucosa = glucosa.map((s, i) => `Medición ${i + 1}`);
+var valoresGlucosa = glucosa.map(s => parseFloat(s.valor));
+
+var fechasPresion = presion.map((s, i) => `Medición ${i + 1}`);
+var valoresPresion = presion.map(s => parseFloat(s.valor));
+
+  // Si no hay datos de glucosa o presión, agregamos valores vacíos
+  if (fechasGlucosa.length === 0) {
+    fechasGlucosa = ["Sin datos"];
+    valoresGlucosa = [0];
+  }
+
+  if (fechasPresion.length === 0) {
+    fechasPresion = ["Sin datos"];
+    valoresPresion = [0];
+  }
+
+  // ==== Gráfico de Glucosa ====
+  var ctxGlucosa = document.getElementById('graficoGlucosa').getContext('2d');
+if (window.graficoGlucosa instanceof Chart) {
+  window.graficoGlucosa.destroy();
+}// elimina gráfico previo
+
+  window.graficoGlucosa = new Chart(ctxGlucosa, {
+    type: 'line',
+    data: {
+      labels: fechasGlucosa,
+      datasets: [{
+        label: 'Glucosa (mg/dL)',
+        data: valoresGlucosa,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderWidth: 2,
+        pointRadius: 5,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: { display: true, text: 'Histórico de Glucosa' }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Fecha' } },
+        y: { title: { display: true, text: 'Nivel de Glucosa (mg/dL)' } }
+      }
+    }
+  });
+
+  // ==== Gráfico de Presión Arterial ====
+  var ctxPresion = document.getElementById('graficoPresion').getContext('2d');
+if (window.graficoPresion instanceof Chart) {
+  window.graficoPresion.destroy();
+} // elimina gráfico previo
+
+  window.graficoPresion = new Chart(ctxPresion, {
+    type: 'line',
+    data: {
+      labels: fechasPresion,
+      datasets: [{
+        label: 'Presión Arterial (mmHg)',
+        data: valoresPresion,
+        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderWidth: 2,
+        pointRadius: 5,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: { display: true, text: 'Histórico de Presión Arterial' }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Fecha' } },
+        y: { title: { display: true, text: 'mmHg' } }
+      }
+    }
+  });
+
+/* Cargar la medicacion del paciente */
+
+var dieta = JSON.parse($(this).attr('data-Dieta'));
+  console.log("dieta recibidos:", dieta);
+
+
+  var $contenedorCardsDieta = $("#contenedor-dieta-paciente");
+
+  function agregarCardDieta(nombre_plato, tipo, descripcion, imagen_platillo) {
+    var $card = $(`
+      <div class="col-md-3 mb-4 col-lg-4">
+        <div class="card shadow-sm border-0">
+          <img class="card-img-top rounded-top" src="Views/plantilla/assets/img/${imagen_platillo}" alt="Platillo: ${nombre_plato}">
+          <div class="card-body">
+            <h5 class="card-title text-success">
+              <i class="fa-solid fa-utensils"></i> ${nombre_plato}
+            </h5>
+            <p class="card-text mb-2">
+              <i class="fa-solid fa-tags text-primary"></i> <b>Tipo:</b> ${tipo}<br>
+              <i class="fa-solid fa-file-alt text-warning"></i> <b>Descripción:</b> ${descripcion}
+            </p>
+
+           
+          </div>
+        </div>
+      </div>
+    `);
+
+    $contenedorCardsDieta.append($card);
+  }
+
+$contenedorCardsDieta.empty();
+  for (let i = 0; i < dieta.length; i++) {
+    let nombre_plato = dieta[i]['nombre_plato'];
+    let tipo = dieta[i]['tipo'];
+    let descripcion = dieta[i]['descripcion'];
+    let imagen_platillo = dieta[i]['imagen_platillo'];
+
+    agregarCardDieta(nombre_plato, tipo, descripcion, imagen_platillo);
+  }
+
+
+
+
+
+
+    });
+
+/* Funcion para agregar dieta doctor */
+   $("#table").on("click", ".btnAgregarDieta", function () {
+        $('#modalAgregarDieta').modal({ backdrop: 'static', keyboard: false });
+        var datos = JSON.parse($(this).attr('data-agregarDieta'));
+      console.log(datos);
+        $("#idPaciente").val(datos);
        
+    });
+
+    
+    /* Funcion para agregar dieta desde la vista doctor*/
+
+    $('#formAgregarDietaPaciente').submit(function (e) {
+        e.preventDefault();
+        var extension = $("#imagen").val().split('.').pop().toLowerCase();;
+        console.log(extension);
+        if (extension != '') {
+            if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert("Invalid Image File");
+                $('#imagen').val('');
+                return false;
+            }
+        }
+        $.ajax({
+            url: 'paciente/agregarDieta',
+            type: 'post',
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+                $('#modalAgregarDieta').modal('hide');
+                $('#formAgregarDietaPaciente')[0].reset();
+                $("#table").DataTable().destroy();
+                $("#table tbody").html(respuesta);
+                inicializarDataTable();
+                Swal.fire({
+                    title: "Se registro la dieta!",
+                    text: "con exito!",
+                    icon: "success"
+                });
+
+            }
+
+
+        });
+    });
+
+
+    /* Funcion para cargar los datos al formulario de edicion del protagonista */
+   $("#table").on("click", ".btnEditarProtagonista", function () {
+        $('#modalActualizarProtagonista').modal({ backdrop: 'static', keyboard: false });
+        var datos = JSON.parse($(this).attr('data-Prota'));
+      console.log(datos);
+        $("#idProtaUp").val(datos['id_protagonista']);
+
+        $("#pNombreUp").val(datos['primer_nombre']);
+        $("#sNombreUp").val(datos['segundo_nombre']);
+        $("#pApellidoUp").val(datos['primer_apellido']);
+        $("#sApellidoUp").val(datos['segundo_apellido']);
+        $("#cedulaUp").val(datos['cedula']);
+        $("#municipioOrigen").val(datos['municipio']);
+        $("#edadUp").val(datos['edad']);
+        $("#sexoUp").val(datos['sexo']);
+        $("#direccionUp").val(datos['direccion']);
+        $("#telefonoUp").val(datos['telefono']);
+        $("#correoUp").val(datos['correo']);
+        $("#previewImageUp").attr('src', baseURL + 'assets/img/' + datos['imagen']);
+
+        
+       
+    });
+
+
+     /* Funcion para agregar dieta desde la vista doctor*/
+
+    $('#formActualizarProtagonista').submit(function (e) {
+        e.preventDefault();
+        var extension = $("#imagen").val().split('.').pop().toLowerCase();;
+        console.log(extension);
+        if (extension != '') {
+            if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert("Invalid Image File");
+                $('#imagen').val('');
+                return false;
+            }
+        }
+        $.ajax({
+            url: 'protagonista/actualizarProtagonista', 
+            type: 'post',
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+                $('#modalAgregarDieta').modal('hide');
+                $('#formAgregarDietaPaciente')[0].reset();
+                $("#table").DataTable().destroy();
+                $("#table tbody").html(respuesta);
+                inicializarDataTable();
+                Swal.fire({
+                    title: "Se registro la dieta!",
+                    text: "con exito!",
+                    icon: "success"
+                });
+
+            }
+
+
+        });
     });
 
 
@@ -1359,6 +1628,8 @@ $("#formRegistrarUsuario").submit(function(e) {
         $("#idCategoriaUp").val(datos['id']);
         $("#nombreCategoriaUp").val(datos['nombre_categoria']);
     });
+
+
 
 
 
